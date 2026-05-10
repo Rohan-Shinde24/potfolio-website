@@ -1,3 +1,5 @@
+import project1 from "../assets/japanese-learning.png";
+
 export const navLinks = [
   {
     id: "about",
@@ -114,7 +116,7 @@ const projects = [
         color: "pink-text-gradient",
       },
     ],
-    image: "/src/assets/japanese-learning.png",
+    image: project1,
     source_code_link: "https://jmaster.netlify.app/",
   },
 ];

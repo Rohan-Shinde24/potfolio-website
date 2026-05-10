@@ -5,6 +5,7 @@ import { styles } from "../styles/styles";
 import { services } from "../constants";
 import { fadeIn, textVariant } from "../utils/motion";
 import SectionWrapper from "../hoc/SectionWrapper";
+import profile from "../assets/profile.jpeg";
 
 const About = () => {
   return (
@@ -23,7 +24,7 @@ const About = () => {
           <div className="absolute inset-0 bg-purple-600/5 group-hover:bg-purple-600/10 transition-all duration-500"></div>
           <div className="w-40 h-40 rounded-full border-4 border-[#915EFF] p-1 shadow-[0_0_20px_rgba(145,94,255,0.2)] mb-4 z-10 bg-white">
             <img
-              src='/src/assets/profile.jpeg'
+              src={profile}
               alt='profile'
               className='w-full h-full object-cover rounded-full'
             />

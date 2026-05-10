@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 
 import { styles } from "../styles/styles";
+import profile from "../assets/profile.jpeg";
 
 const Hero = () => {
   return (
@@ -49,7 +50,7 @@ const Hero = () => {
             {/* Image Container */}
             <div className="relative w-[280px] h-[280px] sm:w-[400px] sm:h-[400px] rounded-[2rem] overflow-hidden border-4 border-white shadow-2xl z-10 bg-white">
               <img 
-                src="/src/assets/profile.jpeg" 
+                src={profile} 
                 alt="Rohan Shinde" 
                 className="w-full h-full object-cover object-top hover:scale-110 transition-transform duration-700 ease-in-out"
               />
