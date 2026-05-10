@@ -1,222 +1,191 @@
-import React, { useEffect, useRef, useState, useMemo, useCallback } from "react";
+import React, { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { Typewriter } from 'react-simple-typewriter';
-import { loadSlim } from "@tsparticles/slim";
-import Particles, { initParticlesEngine } from "@tsparticles/react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { MeshDistortMaterial, Sphere, OrbitControls, Float } from "@react-three/drei";
-
-const Scene = () => {
-  return (
-    <Float speed={4} rotationIntensity={1} floatIntensity={2}>
-      <Sphere args={[1, 100, 200]} scale={2.2}>
-        <MeshDistortMaterial
-          color="#7C3AED"
-          attach="material"
-          distort={0.5}
-          speed={2}
-          roughness={0.2}
-          metalness={0.8}
-        />
-      </Sphere>
-      <mesh position={[0, 0, -1]}>
-        <sphereGeometry args={[1.5, 32, 32]} />
-        <meshStandardMaterial color="#06B6D4" wireframe opacity={0.2} transparent />
-      </mesh>
-    </Float>
-  );
-};
+import { Typewriter } from "react-simple-typewriter";
+import profile from "../assets/profile.jpeg";
+import { MY_EMAIL } from "../constants";
 
 const Hero = () => {
-  const [init, setInit] = useState(false);
   const containerRef = useRef(null);
 
-  useEffect(() => {
-    initParticlesEngine(async (engine) => {
-      await loadSlim(engine);
-    }).then(() => {
-      setInit(true);
-    });
-  }, []);
-
-  const particlesOptions = useMemo(
-    () => ({
-      background: { color: { value: "transparent" } },
-      fpsLimit: 120,
-      interactivity: {
-        events: {
-          onHover: { enable: true, mode: "grab" },
-          onClick: { enable: true, mode: "push" },
-        },
-        modes: {
-          grab: { distance: 140, links: { opacity: 1 } },
-          push: { quantity: 4 },
-        },
-      },
-      particles: {
-        color: { value: "#7C3AED" },
-        links: {
-          color: "#06B6D4",
-          distance: 150,
-          enable: true,
-          opacity: 0.3,
-          width: 1,
-        },
-        move: {
-          direction: "none",
-          enable: true,
-          outModes: { default: "bounce" },
-          random: false,
-          speed: 1,
-          straight: false,
-        },
-        number: { density: { enable: true, area: 800 }, value: 80 },
-        opacity: { value: 0.5 },
-        shape: { type: "circle" },
-        size: { value: { min: 1, max: 3 } },
-      },
-      detectRetina: true,
-    }),
-    []
-  );
-
-  // Mouse tilt effect for avatar
+  // 3D tilt on profile image
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-
-  const rotateX = useSpring(useTransform(mouseY, [-300, 300], [15, -15]), { stiffness: 300, damping: 30 });
-  const rotateY = useSpring(useTransform(mouseX, [-300, 300], [-15, 15]), { stiffness: 300, damping: 30 });
+  const rotateX = useSpring(useTransform(mouseY, [-200, 200], [10, -10]), { stiffness: 300, damping: 30 });
+  const rotateY = useSpring(useTransform(mouseX, [-200, 200], [-10, 10]), { stiffness: 300, damping: 30 });
 
   const handleMouseMove = (e) => {
     const rect = containerRef.current?.getBoundingClientRect();
     if (rect) {
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
-      mouseX.set(x);
-      mouseY.set(y);
+      mouseX.set(e.clientX - rect.left - rect.width / 2);
+      mouseY.set(e.clientY - rect.top - rect.height / 2);
     }
   };
 
   return (
-    <section 
+    <section
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="relative w-full h-screen mx-auto overflow-hidden flex items-center justify-center pt-20"
+      className="relative w-full min-h-[90vh] flex items-center justify-center overflow-hidden bg-white"
       id="hero"
     >
-      {/* Particles Background */}
-      {init && (
-        <Particles
-          id="tsparticles"
-          options={particlesOptions}
-          className="absolute inset-0 z-0"
-        />
-      )}
-
-      <div className="max-w-7xl mx-auto px-6 sm:px-16 flex flex-col md:flex-row items-center justify-between gap-12 z-10 w-full">
-        {/* Left Content */}
-        <div className="flex-1 text-center md:text-left">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-            <h2 className="text-[#06B6D4] font-mono mb-2 tracking-widest uppercase text-sm">
-              <span className="opacity-50">&lt;</span> Fullstack Developer <span className="opacity-50">/&gt;</span>
-            </h2>
-            
-            <h1 className="text-5xl sm:text-7xl font-bold text-white mb-4 font-space">
-              Hi, I'm <br />
-              <span className="relative inline-block mt-2">
-                <span className="text-stroke text-transparent bg-clip-text bg-gradient-to-r from-[#7C3AED] to-[#06B6D4] animate-pulse">
-                  Rohan Shinde
-                </span>
-              </span>
-            </h1>
-
-            <div className="h-[40px] mb-8">
-              <p className="text-xl sm:text-2xl text-white/60 font-medium">
-                I am a {" "}
-                <span className="text-[#7C3AED] font-bold">
-                  <Typewriter
-                    words={['Fullstack Developer', 'React Enthusiast', 'UI/UX Designer', 'Problem Solver']}
-                    loop={0}
-                    cursor
-                    cursorStyle='_'
-                    typeSpeed={70}
-                    deleteSpeed={50}
-                    delaySpeed={1500}
-                  />
-                </span>
-              </p>
-            </div>
-
-            <div className="flex flex-wrap gap-6 justify-center md:justify-start">
-              <motion.a
-                href="#projects"
-                whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(124, 58, 237, 0.5)" }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-[#7C3AED] text-white rounded-full font-bold shadow-lg shadow-violet-500/20 transition-all flex items-center gap-2"
-              >
-                View Projects
-              </motion.a>
-              <motion.button
-                whileHover={{ scale: 1.05, borderColor: "rgba(6, 182, 212, 0.5)" }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 glass-morphism border border-white/10 text-white rounded-full font-bold hover:bg-white/5 transition-all"
-              >
-                Download Resume
-              </motion.button>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Right Content - 3D Avatar/Blob */}
-        <div className="flex-1 w-full h-[400px] md:h-[600px] relative">
-          <motion.div 
-            style={{ rotateX, rotateY, perspective: 1000 }}
-            className="w-full h-full"
-          >
-            <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
-              <ambientLight intensity={1} />
-              <directionalLight position={[10, 10, 5]} intensity={2} />
-              <pointLight position={[-10, -10, -5]} color="#7C3AED" intensity={5} />
-              <Scene />
-              <OrbitControls enableZoom={false} enablePan={false} />
-            </Canvas>
-          </motion.div>
-          
-          {/* Decorative floating elements */}
-          <motion.div 
-            animate={{ y: [0, -20, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-1/4 -right-4 w-12 h-12 glass-morphism rounded-xl flex items-center justify-center border border-white/20 shadow-xl"
-          >
-            <span className="text-xl">⚛️</span>
-          </motion.div>
-          <motion.div 
-            animate={{ y: [0, 20, 0] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-            className="absolute bottom-1/4 -left-4 w-12 h-12 glass-morphism rounded-xl flex items-center justify-center border border-white/20 shadow-xl"
-          >
-            <span className="text-xl">🚀</span>
-          </motion.div>
-        </div>
+      {/* Subtle Light Gradients */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute top-1/4 -left-1/4 w-[500px] h-[500px] rounded-full bg-indigo-50 blur-[120px]" />
+        <div className="absolute bottom-1/4 -right-1/4 w-[500px] h-[500px] rounded-full bg-cyan-50 blur-[120px]" />
       </div>
 
-      {/* Scroll Down Indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-        <span className="text-white/30 text-xs font-mono uppercase tracking-widest">Scroll</span>
-        <motion.div 
-          animate={{ y: [0, 12, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="w-6 h-10 border-2 border-white/20 rounded-full flex justify-center p-1"
+      <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-16 w-full pt-20">
+        {/* LEFT: Text content */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="flex-1 text-center md:text-left"
         >
-          <div className="w-1 h-2 bg-[#06B6D4] rounded-full" />
+          <span className="inline-block text-indigo-600 font-mono tracking-[0.3em] uppercase text-xs mb-6 border border-indigo-100 px-4 py-2 rounded-full bg-indigo-50/50">
+            Fullstack Developer
+          </span>
+
+          <h1 className="text-6xl sm:text-7xl font-extrabold text-gray-900 mb-6 font-space leading-tight tracking-tight">
+            Hi, I'm{" "}
+            <span className="block mt-2 bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent">
+              Rohan Shinde
+            </span>
+          </h1>
+
+          <div className="h-10 mb-8">
+            <p className="text-xl sm:text-2xl text-gray-600 font-medium">
+              I build{" "}
+              <span className="text-indigo-600 font-bold underline decoration-indigo-200 decoration-4 underline-offset-4">
+                <Typewriter
+                  words={["Full-Stack Apps", "React Experiences", "Modern APIs", "AI Solutions"]}
+                  loop={0}
+                  cursor
+                  cursorStyle="_"
+                  typeSpeed={70}
+                  deleteSpeed={50}
+                  delaySpeed={2000}
+                />
+              </span>
+            </p>
+          </div>
+
+          <p className="text-gray-500 text-lg mb-10 max-w-lg leading-relaxed font-light">
+            Crafting high-performance digital experiences with a focus on clean architecture, intuitive design, and modern technology.
+          </p>
+
+          <div className="flex flex-wrap gap-5 justify-center md:justify-start">
+            <motion.a
+              href="#projects"
+              whileHover={{ scale: 1.03, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              className="px-10 py-4 bg-indigo-600 text-white rounded-2xl font-bold shadow-xl shadow-indigo-200 transition-all"
+            >
+              Explore My Work
+            </motion.a>
+
+            <motion.a
+              href={`mailto:${MY_EMAIL}?subject=Let's Start a Project`}
+              whileHover={{ scale: 1.03, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              className="px-10 py-4 bg-white border-2 border-gray-100 text-gray-900 rounded-2xl font-bold hover:bg-gray-50 transition-all"
+            >
+              🚀 Let's Connect
+            </motion.a>
+          </div>
+
+          {/* Key metrics */}
+          <div className="flex gap-10 mt-16 justify-center md:justify-start">
+            {[["3+", "Years"], ["20+", "Projects"], ["15+", "Tools"]].map(([num, label]) => (
+              <div key={label} className="text-center md:text-left">
+                <p className="text-3xl font-black font-space text-gray-900">{num}</p>
+                <p className="text-gray-400 text-xs uppercase tracking-[0.2em] font-bold mt-1">{label}</p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* RIGHT: Profile Image with soft effects */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+          className="flex-1 flex items-center justify-center"
+        >
+          <motion.div
+            style={{ rotateX, rotateY, perspective: 1200 }}
+            className="relative w-[340px] h-[340px] sm:w-[450px] sm:h-[450px]"
+          >
+            {/* Soft Shadow Rings */}
+            <div className="absolute inset-10 rounded-full bg-indigo-100 blur-[80px] opacity-40 animate-pulse" />
+            
+            {/* Subtle floating rings */}
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+              className="absolute inset-[-15px] rounded-full border border-dashed border-indigo-100 opacity-50"
+            />
+            <motion.div
+              animate={{ rotate: -360 }}
+              transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+              className="absolute inset-[-30px] rounded-full border border-indigo-50 opacity-30"
+            />
+
+            {/* Main Profile Image */}
+            <div className="relative w-full h-full rounded-[40px] overflow-hidden border-[8px] border-white shadow-2xl shadow-indigo-100 rotate-3 group">
+              <img
+                src={profile}
+                alt="Rohan Shinde"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-indigo-900/20 via-transparent to-transparent" />
+            </div>
+
+            {/* Floating feature tags */}
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -top-6 -right-6 bg-white border border-gray-100 p-4 rounded-2xl shadow-xl flex items-center gap-3 z-20"
+            >
+              <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600 font-bold">
+                ⚛️
+              </div>
+              <div>
+                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Expertise</p>
+                <p className="text-gray-900 font-bold text-sm">React Specialist</p>
+              </div>
+            </motion.div>
+
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+              className="absolute -bottom-8 -left-8 bg-white border border-gray-100 p-4 rounded-2xl shadow-xl flex items-center gap-3 z-20"
+            >
+              <div className="w-10 h-10 rounded-xl bg-cyan-50 flex items-center justify-center text-cyan-600 font-bold">
+                🚀
+              </div>
+              <div>
+                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Status</p>
+                <p className="text-gray-900 font-bold text-sm">Open for Work</p>
+              </div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
+      </div>
+
+      {/* Scroll indicator for light theme */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10">
+        <span className="text-gray-300 text-[10px] font-bold uppercase tracking-[0.4em]">Explore</span>
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className="w-5 h-8 border-2 border-gray-100 rounded-full flex justify-center p-1"
+        >
+          <div className="w-1 h-1.5 bg-indigo-600 rounded-full" />
         </motion.div>
       </div>
     </section>
   );
 };
 
-export default Hero;
+export default Hero;ault Hero;

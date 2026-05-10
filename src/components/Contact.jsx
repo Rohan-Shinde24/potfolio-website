@@ -1,191 +1,217 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Github, Linkedin, Twitter, Copy, Check, Send } from "lucide-react";
+import { Github, Linkedin, Twitter, Copy, Check, Mail, ExternalLink, MessageCircle } from "lucide-react";
 import SectionWrapper from "../hoc/SectionWrapper";
+import { MY_EMAIL } from "../constants";
 
-const InputField = ({ label, name, value, onChange, type = "text", isTextArea = false }) => {
-  const [isFocused, setIsFocused] = useState(false);
-
-  return (
-    <div className="relative mb-8">
-      <label 
-        className={`absolute left-0 transition-all duration-300 pointer-events-none font-mono text-sm uppercase tracking-widest ${
-          isFocused || value ? "-top-6 text-[#06B6D4] opacity-100" : "top-4 text-white/30 opacity-50"
-        }`}
-      >
-        {label}
-      </label>
-      {isTextArea ? (
-        <textarea
-          name={name}
-          value={value}
-          onChange={onChange}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-          rows={5}
-          className="w-full bg-transparent border-b border-white/10 py-4 outline-none focus:border-[#7C3AED] transition-all text-white font-light resize-none"
-        />
-      ) : (
-        <input
-          type={type}
-          name={name}
-          value={value}
-          onChange={onChange}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-          className="w-full bg-transparent border-b border-white/10 py-4 outline-none focus:border-[#7C3AED] transition-all text-white font-light"
-        />
-      )}
-      <motion.div 
-        initial={{ width: 0 }}
-        animate={{ width: isFocused ? "100%" : 0 }}
-        className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-[#7C3AED] to-[#06B6D4]"
-      />
-    </div>
-  );
-};
-
-const MagneticButton = ({ children, onClick, className = "", type = "button" }) => {
-  const buttonRef = useRef(null);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-
-  const handleMouseMove = (e) => {
-    const { clientX, clientY } = e;
-    const { left, top, width, height } = buttonRef.current.getBoundingClientRect();
-    const x = (clientX - (left + width / 2)) * 0.4;
-    const y = (clientY - (top + height / 2)) * 0.4;
-    setPosition({ x, y });
-  };
-
-  const handleMouseLeave = () => {
-    setPosition({ x: 0, y: 0 });
-  };
-
-  return (
-    <motion.button
-      ref={buttonRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      animate={{ x: position.x, y: position.y }}
-      transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
-      type={type}
-      onClick={onClick}
-      className={className}
-    >
-      {children}
-    </motion.button>
-  );
-};
+const GITHUB_URL  = "https://github.com/Rohan-Shinde24";
+const LINKEDIN_URL = "https://www.linkedin.com/in/rohan-shinde-24/";
+const TWITTER_URL  = "https://twitter.com/";
 
 const Contact = () => {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState({ name: "", subject: "", message: "" });
   const [copied, setCopied] = useState(false);
-  const email = "rohanshinde24@example.com";
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(email);
+  const copyEmail = () => {
+    navigator.clipboard.writeText(MY_EMAIL);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const handleSubmit = (e) => {
+  // Opens Gmail compose with pre-filled data
+  const handleSendGmail = (e) => {
     e.preventDefault();
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      alert("Message sent! I'll get back to you soon.");
-      setForm({ name: "", email: "", message: "" });
-    }, 1500);
+    const subject = encodeURIComponent(form.subject || "Hey Rohan, let's connect!");
+    const body = encodeURIComponent(
+      `Hi Rohan,\n\nMy name is ${form.name}.\n\n${form.message}\n\nBest regards,\n${form.name}`
+    );
+    window.open(`https://mail.google.com/mail/?view=cm&to=${MY_EMAIL}&su=${subject}&body=${body}`, "_blank");
   };
+
+  const socials = [
+    { icon: <Github size={20} />, label: "GitHub",   link: GITHUB_URL,   color: "#fff",     bg: "hover:bg-white/10" },
+    { icon: <Linkedin size={20} />, label: "LinkedIn", link: LINKEDIN_URL, color: "#0A66C2",  bg: "hover:bg-blue-500/10" },
+    { icon: <Twitter size={20} />, label: "Twitter",  link: TWITTER_URL,  color: "#1DA1F2",  bg: "hover:bg-sky-500/10" },
+  ];
 
   return (
     <div className="relative">
       <div className="section-watermark">Contact</div>
 
-      <div className="flex flex-col lg:flex-row gap-16 items-center">
-        {/* Left Side: Form */}
-        <motion.div 
-          initial={{ opacity: 0, x: -50 }}
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        className="mb-16"
+      >
+        <p className="text-[#06B6D4] font-mono mb-2 tracking-widest text-sm uppercase">05. Communication</p>
+        <h2 className="text-5xl font-bold text-white font-space">Get In Touch.</h2>
+        <p className="text-white/40 mt-4 max-w-xl">
+          Have a project in mind or just want to say hello? Fill the form and it'll open directly in Gmail — or reach me via the links below.
+        </p>
+      </motion.div>
+
+      <div className="flex flex-col lg:flex-row gap-12 items-start">
+        {/* LEFT: Contact Form */}
+        <motion.div
+          initial={{ opacity: 0, x: -40 }}
           whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
           className="flex-1 w-full"
         >
-          <p className="text-[#06B6D4] font-mono mb-2">05. Communication</p>
-          <h2 className="text-5xl font-bold text-white font-space mb-12">Get In Touch.</h2>
+          <form onSubmit={handleSendGmail} className="space-y-6">
+            {/* Name */}
+            <div className="relative">
+              <label className="block text-xs font-mono uppercase tracking-widest text-white/40 mb-2">Your Name</label>
+              <input
+                type="text"
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                required
+                placeholder="John Doe"
+                className="w-full bg-white/3 border border-white/10 focus:border-[#7C3AED] rounded-xl px-5 py-4 text-white placeholder-white/20 outline-none transition-all backdrop-blur-sm"
+              />
+            </div>
 
-          <form onSubmit={handleSubmit} className="glass-morphism p-10 rounded-3xl border border-white/5 relative overflow-hidden">
-             <div className="absolute top-0 right-0 w-64 h-64 bg-[#06B6D4]/5 blur-[100px] pointer-events-none"></div>
-             
-             <InputField label="Name" name="name" value={form.name} onChange={handleChange} />
-             <InputField label="Email" name="email" value={form.email} onChange={handleChange} type="email" />
-             <InputField label="Message" name="message" value={form.message} onChange={handleChange} isTextArea={true} />
+            {/* Subject */}
+            <div>
+              <label className="block text-xs font-mono uppercase tracking-widest text-white/40 mb-2">Subject</label>
+              <input
+                type="text"
+                name="subject"
+                value={form.subject}
+                onChange={handleChange}
+                required
+                placeholder="Project Collaboration / Freelance"
+                className="w-full bg-white/3 border border-white/10 focus:border-[#7C3AED] rounded-xl px-5 py-4 text-white placeholder-white/20 outline-none transition-all backdrop-blur-sm"
+              />
+            </div>
 
-             <MagneticButton 
-               type="submit"
-               className="w-full py-4 bg-gradient-to-r from-[#7C3AED] to-[#06B6D4] text-white rounded-xl font-bold font-space uppercase tracking-widest shadow-xl shadow-violet-500/20 flex items-center justify-center gap-3 group"
-             >
-               {loading ? "Transmitting..." : "Send Message"}
-               <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-             </MagneticButton>
+            {/* Message */}
+            <div>
+              <label className="block text-xs font-mono uppercase tracking-widest text-white/40 mb-2">Message</label>
+              <textarea
+                name="message"
+                value={form.message}
+                onChange={handleChange}
+                required
+                rows={5}
+                placeholder="Tell me about your project..."
+                className="w-full bg-white/3 border border-white/10 focus:border-[#7C3AED] rounded-xl px-5 py-4 text-white placeholder-white/20 outline-none transition-all resize-none backdrop-blur-sm"
+              />
+            </div>
+
+            {/* Submit — opens Gmail */}
+            <motion.button
+              type="submit"
+              whileHover={{ scale: 1.02, boxShadow: "0 0 30px rgba(124,58,237,0.4)" }}
+              whileTap={{ scale: 0.98 }}
+              className="w-full py-4 bg-gradient-to-r from-[#7C3AED] to-[#06B6D4] text-white rounded-xl font-bold font-space uppercase tracking-widest shadow-xl shadow-violet-500/20 flex items-center justify-center gap-3 group"
+            >
+              <Mail size={18} />
+              Open in Gmail
+              <ExternalLink size={14} className="opacity-60 group-hover:opacity-100 transition-opacity" />
+            </motion.button>
+
+            <p className="text-center text-white/30 text-xs font-mono">
+              This will open Gmail compose pre-filled with your message
+            </p>
           </form>
         </motion.div>
 
-        {/* Right Side: Visual & Socials */}
-        <div className="flex-1 w-full flex flex-col items-center gap-12">
-           {/* Rhombus Container */}
-           <motion.div 
-             initial={{ opacity: 0, scale: 0.8, rotate: 45 }}
-             whileInView={{ opacity: 1, scale: 1, rotate: 45 }}
-             className="w-64 h-64 glass-morphism border border-[#7C3AED]/30 flex items-center justify-center relative group"
-           >
-              <div className="-rotate-45 flex flex-col items-center text-center p-4">
-                 <div className="text-4xl mb-4 group-hover:scale-125 transition-transform">👋</div>
-                 <h3 className="text-white font-space font-bold uppercase tracking-widest text-lg">Let's Build Something</h3>
-                 <p className="text-white/40 text-xs mt-2 font-mono uppercase">Available for projects</p>
-              </div>
-              
-              {/* Animated Rings */}
-              <div className="absolute inset-0 border border-[#06B6D4]/20 animate-pulse"></div>
-              <div className="absolute inset-[-10px] border border-[#7C3AED]/10 animate-pulse delay-500"></div>
-           </motion.div>
+        {/* RIGHT: Info panel */}
+        <motion.div
+          initial={{ opacity: 0, x: 40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.15 }}
+          className="flex-1 w-full flex flex-col gap-6"
+        >
+          {/* Availability badge */}
+          <div className="glass-morphism border border-green-500/20 rounded-2xl p-6 flex items-center gap-4">
+            <div className="w-3 h-3 rounded-full bg-green-400 animate-pulse shadow-lg shadow-green-400/50 shrink-0" />
+            <div>
+              <p className="text-green-400 font-bold font-space">Available for Projects</p>
+              <p className="text-white/40 text-sm mt-0.5">Open to freelance &amp; full-time opportunities</p>
+            </div>
+          </div>
 
-           {/* Contact Info & Socials */}
-           <div className="w-full max-w-sm space-y-6">
-              <div className="glass-morphism p-6 rounded-2xl border border-white/5 flex items-center justify-between group">
-                 <div>
-                    <p className="text-white/30 text-[10px] font-mono uppercase tracking-[0.3em]">Email</p>
-                    <p className="text-white font-medium">{email}</p>
-                 </div>
-                 <button 
-                  onClick={copyToClipboard}
-                  className="p-3 rounded-xl bg-white/5 hover:bg-[#06B6D4]/20 transition-all text-[#06B6D4]"
-                 >
-                    {copied ? <Check size={18} /> : <Copy size={18} />}
-                 </button>
-              </div>
+          {/* Email card */}
+          <div className="glass-morphism border border-white/8 rounded-2xl p-6">
+            <p className="text-white/30 text-[10px] font-mono uppercase tracking-[0.3em] mb-3">Direct Email</p>
+            <div className="flex items-center justify-between gap-3">
+              <a
+                href={`mailto:${MY_EMAIL}`}
+                className="text-white font-medium hover:text-[#06B6D4] transition-colors truncate"
+              >
+                {MY_EMAIL}
+              </a>
+              <button
+                onClick={copyEmail}
+                className={`p-2.5 rounded-xl transition-all shrink-0 ${
+                  copied ? "bg-green-500/20 text-green-400" : "bg-white/5 hover:bg-[#06B6D4]/20 text-[#06B6D4]"
+                }`}
+                title="Copy email"
+              >
+                {copied ? <Check size={16} /> : <Copy size={16} />}
+              </button>
+            </div>
 
-              <div className="flex justify-center gap-6">
-                 {[
-                   { icon: <Github size={24} />, link: "#", color: "#fff" },
-                   { icon: <Linkedin size={24} />, link: "#", color: "#0077B5" },
-                   { icon: <Twitter size={24} />, link: "#", color: "#1DA1F2" },
-                 ].map((social, i) => (
-                   <MagneticButton
-                     key={i}
-                     className="w-16 h-16 rounded-2xl glass-morphism border border-white/10 flex items-center justify-center text-white/60 hover:text-white transition-all group"
-                   >
-                     <div className="relative z-10">{social.icon}</div>
-                     <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl" />
-                   </MagneticButton>
-                 ))}
-              </div>
-           </div>
-        </div>
+            {/* Quick Gmail compose button */}
+            <a
+              href={`https://mail.google.com/mail/?view=cm&to=${MY_EMAIL}&su=Let's%20collaborate!`}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-4 flex items-center gap-2 text-[#06B6D4] text-sm font-mono hover:gap-3 transition-all"
+            >
+              <MessageCircle size={14} />
+              Quick message via Gmail
+              <ExternalLink size={12} />
+            </a>
+          </div>
+
+          {/* Start Project CTA */}
+          <motion.a
+            href={`mailto:${MY_EMAIL}?subject=Let's%20Start%20a%20Project&body=Hi%20Rohan%2C%20I%20have%20a%20project%20idea%20I%27d%20like%20to%20discuss!`}
+            whileHover={{ scale: 1.02, boxShadow: "0 0 25px rgba(6,182,212,0.3)" }}
+            whileTap={{ scale: 0.98 }}
+            className="glass-morphism border border-[#06B6D4]/30 rounded-2xl p-6 flex items-center justify-between group cursor-pointer hover:border-[#06B6D4]/60 transition-all"
+          >
+            <div>
+              <p className="text-white font-bold font-space text-lg">Start a Project</p>
+              <p className="text-white/40 text-sm mt-0.5">Let's build something amazing together</p>
+            </div>
+            <div className="w-12 h-12 rounded-xl bg-[#06B6D4]/10 border border-[#06B6D4]/30 flex items-center justify-center group-hover:bg-[#06B6D4]/20 transition-all">
+              <ExternalLink size={20} className="text-[#06B6D4]" />
+            </div>
+          </motion.a>
+
+          {/* Social links */}
+          <div className="glass-morphism border border-white/8 rounded-2xl p-6">
+            <p className="text-white/30 text-[10px] font-mono uppercase tracking-[0.3em] mb-4">Find Me On</p>
+            <div className="flex gap-3">
+              {socials.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.link}
+                  target="_blank"
+                  rel="noreferrer"
+                  title={s.label}
+                  className={`flex-1 py-3 glass-morphism border border-white/10 rounded-xl flex flex-col items-center gap-2 transition-all ${s.bg}`}
+                  style={{ color: s.color }}
+                >
+                  {s.icon}
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-white/40">{s.label}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </motion.div>
       </div>
     </div>
   );

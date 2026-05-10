@@ -1,51 +1,96 @@
-import React from 'react';
-import { technologies } from '../constants';
+import React from "react";
+import { techRow1, techRow2, techRow3 } from "../constants";
 
-const TechMarquee = () => {
-  // Duplicate the array to create a seamless infinite scroll
-  const marqueeItems = [...technologies, ...technologies, ...technologies, ...technologies];
+const MarqueeRow = ({ items, direction = "left", speed = 35 }) => {
+  // Triple-duplicate for seamless scroll
+  const doubled = [...items, ...items, ...items];
+  const animClass = direction === "right" ? "marquee-row-right" : "marquee-row-left";
 
   return (
-    <div className="py-20 bg-transparent overflow-hidden relative flex flex-col justify-center border-y border-white/5">
-      {/* Edge Fades */}
-      <div className="absolute inset-y-0 left-0 w-48 bg-gradient-to-r from-[#040812] to-transparent z-10 pointer-events-none"></div>
-      <div className="absolute inset-y-0 right-0 w-48 bg-gradient-to-l from-[#040812] to-transparent z-10 pointer-events-none"></div>
-      
-      <div className="animate-marquee flex gap-24 items-center">
-        {marqueeItems.map((tech, index) => (
-          <div 
-            key={`marquee-${tech.name}-${index}`}
-            className="flex items-center gap-4 group cursor-default"
-          >
-            <div className="w-14 h-14 glass-morphism rounded-xl flex items-center justify-center border border-white/5 group-hover:border-[#06B6D4]/30 transition-all duration-500">
-              <img 
-                src={tech.icon} 
-                alt={tech.name} 
-                className="w-8 h-8 object-contain filter grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 scale-90 group-hover:scale-110"
-              />
-            </div>
-            <p className="text-white/20 font-space font-bold uppercase tracking-[0.3em] text-xl group-hover:text-[#7C3AED] transition-colors duration-500">
-              {tech.name}
-            </p>
-          </div>
+    <div
+      className="flex overflow-hidden relative group"
+      style={{ maskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)" }}
+    >
+      <div
+        className={`flex gap-4 shrink-0 ${animClass} group-hover:[animation-play-state:paused]`}
+        style={{ "--speed": `${speed}s` }}
+      >
+        {doubled.map((tech, i) => (
+          <TechChip key={`${tech.name}-${i}`} tech={tech} />
         ))}
       </div>
+    </div>
+  );
+};
 
-      <style jsx>{`
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+const TechChip = ({ tech }) => (
+  <div className="flex items-center gap-4 px-6 py-4 glass-morphism border border-white/5 rounded-2xl hover:border-[#7C3AED]/50 hover:bg-white/10 transition-all duration-500 group/chip cursor-default shrink-0 shadow-xl shadow-black/20">
+    <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 group-hover/chip:bg-[#7C3AED]/20 transition-all border border-white/10 p-2 shadow-inner">
+      <img
+        src={tech.icon}
+        alt={tech.name}
+        className="w-full h-full object-contain filter brightness-90 group-hover/chip:brightness-125 transition-all duration-500 group-hover/chip:scale-110"
+        onError={(e) => { e.target.style.display = "none"; }}
+      />
+    </div>
+    <div className="flex flex-col">
+      <span className="text-white/70 font-space font-bold text-xs uppercase tracking-[0.2em] group-hover/chip:text-white transition-colors">
+        {tech.name}
+      </span>
+      <div className="w-0 group-hover/chip:w-full h-[1px] bg-gradient-to-r from-[#7C3AED] to-[#06B6D4] transition-all duration-500 mt-1" />
+    </div>
+  </div>
+);
+
+const TechMarquee = () => {
+  return (
+    <section className="py-24 relative overflow-hidden border-y border-white/5 bg-[#040812]">
+      {/* Background Grid for this section */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+           style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
+      
+      {/* Section header */}
+      <div className="text-center mb-16 px-6 relative z-10">
+        <div className="inline-block px-4 py-1.5 glass-morphism border border-[#06B6D4]/20 rounded-full mb-4">
+          <p className="text-[#06B6D4] font-mono text-[10px] uppercase tracking-[0.5em]">Engineering Stack</p>
+        </div>
+        <h2 className="text-4xl sm:text-5xl font-bold text-white font-space mb-4">
+          Technical <span className="bg-gradient-to-r from-[#7C3AED] to-[#06B6D4] bg-clip-text text-transparent underline decoration-[#7C3AED]/30 decoration-wavy underline-offset-8">Arsenal</span>
+        </h2>
+        <p className="text-white/40 text-sm max-w-lg mx-auto font-light leading-relaxed">
+          Crafting robust solutions with a modern, high-performance tech stack optimized for scalability and user experience.
+        </p>
+      </div>
+
+      {/* Ambient glow */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/4 left-0 w-[400px] h-[400px] bg-[#7C3AED]/5 blur-[120px]" />
+        <div className="absolute bottom-1/4 right-0 w-[400px] h-[400px] bg-[#06B6D4]/5 blur-[120px]" />
+      </div>
+
+      <div className="flex flex-col gap-6 relative z-10">
+        <MarqueeRow items={techRow1} direction="left"  speed={40} />
+        <MarqueeRow items={techRow2} direction="right" speed={35} />
+        <MarqueeRow items={techRow3} direction="left"  speed={45} />
+      </div>
+
+      <style>{`
+        @keyframes marquee-left {
+          0%   { transform: translateX(0); }
+          100% { transform: translateX(-33.333%); }
         }
-        .animate-marquee {
-          display: flex;
-          width: max-content;
-          animation: marquee 40s linear infinite;
+        @keyframes marquee-right {
+          0%   { transform: translateX(-33.333%); }
+          100% { transform: translateX(0); }
         }
-        .animate-marquee:hover {
-          animation-play-state: paused;
+        .marquee-row-left {
+          animation: marquee-left var(--speed, 30s) linear infinite;
+        }
+        .marquee-row-right {
+          animation: marquee-right var(--speed, 30s) linear infinite;
         }
       `}</style>
-    </div>
+    </section>
   );
 };
 

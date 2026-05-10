@@ -1,23 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 
 :root {
-  --color-bg: #040812;
-  --color-text: #f8fafc;
-  --color-accent-primary: #7C3AED; /* Electric Violet */
-  --color-accent-secondary: #06B6D4; /* Neon Cyan */
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-blur: 16px;
-}
-
-[data-theme='light'] {
-  --color-bg: #f8fafc;
-  --color-text: #040812;
-  --color-accent-primary: #6D28D9;
-  --color-accent-secondary: #0891B2;
-  --glass-bg: rgba(0, 0, 0, 0.03);
-  --glass-border: rgba(0, 0, 0, 0.08);
+  --color-bg: #FFFFFF;
+  --color-text: #111827; /* Near black for better readability */
+  --color-accent-primary: #4F46E5; /* Indigo-600 */
+  --color-accent-secondary: #0891B2; /* Cyan-600 */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 0, 0, 0.05);
+  --glass-blur: 12px;
 }
 
 * {
@@ -25,11 +16,11 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Inter', sans-serif;
-  cursor: none; /* We use a custom cursor */
+  scroll-behavior: smooth;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 code, pre {
@@ -41,47 +32,96 @@ body {
   color: var(--color-text);
   overflow-x: hidden;
   transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--color-bg);
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, var(--color-accent-primary), var(--color-accent-secondary));
-  border-radius: 10px;
-}
-
-/* Glassmorphism Utility */
-.glass {
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border);
-}
-
-.glass-morphism {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-/* Noise Texture Overlay */
-.noise-overlay {
+/* Static, extremely subtle grid for texture */
+body::before {
+  content: "";
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
   pointer-events: none;
+  z-index: -1;
+}
+
+/* Professional Soft Glows instead of harsh gradients */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 10% 10%, rgba(79, 70, 229, 0.03) 0%, transparent 40%),
+    radial-gradient(circle at 90% 90%, rgba(8, 145, 178, 0.03) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Container utility with strict, generous padding */
+.max-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 5rem;
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .max-container { padding: 0 3rem; }
+}
+
+@media (max-width: 640px) {
+  .max-container { padding: 0 1.5rem; }
+}
+
+/* Custom Scrollbar for Light Theme */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F3F4F6;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D1D5DB;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9CA3AF;
+}
+
+.glass-morphism {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+}
+
+/* Section Watermark for Light Theme */
+.section-watermark {
+  position: absolute;
+  top: -20px;
+  left: 0;
+  font-size: clamp(4rem, 12vw, 10rem);
+  font-weight: 900;
   opacity: 0.03;
-  z-index: 9999;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3%3Ffilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  color: #000;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: -1;
+  text-transform: uppercase;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 /* Organic Shapes (clip-paths) */
@@ -148,11 +188,38 @@ body {
 }
 
 @keyframes glitch-anim {
-  0% { clip: rect(31px, 9999px, 94px, 0); transform: skew(0.85deg); }
-  5% { clip: rect(70px, 9999px, 71px, 0); transform: skew(0.2deg); }
-  ... /* simplified for brevity, will add full later if needed */
+  0%   { clip: rect(31px, 9999px, 94px, 0); transform: skew(0.85deg); }
+  5%   { clip: rect(70px, 9999px, 71px, 0); transform: skew(0.2deg); }
+  10%  { clip: rect(29px, 9999px, 85px, 0); transform: skew(0.46deg); }
+  15%  { clip: rect(50px, 9999px, 60px, 0); transform: skew(0.9deg); }
+  20%  { clip: rect(10px, 9999px, 30px, 0); transform: skew(0.3deg); }
+  25%  { clip: rect(80px, 9999px, 90px, 0); transform: skew(0.12deg); }
+  30%  { clip: rect(5px,  9999px, 20px, 0); transform: skew(0.7deg); }
+  35%  { clip: rect(60px, 9999px, 75px, 0); transform: skew(0.55deg); }
+  40%  { clip: rect(20px, 9999px, 45px, 0); transform: skew(0.28deg); }
+  45%  { clip: rect(90px, 9999px, 99px, 0); transform: skew(0.4deg); }
+  50%  { clip: rect(15px, 9999px, 55px, 0); transform: skew(0.6deg); }
+  55%  { clip: rect(40px, 9999px, 70px, 0); transform: skew(0.75deg); }
+  60%  { clip: rect(3px,  9999px, 18px, 0); transform: skew(0.1deg); }
+  65%  { clip: rect(75px, 9999px, 88px, 0); transform: skew(0.5deg); }
+  70%  { clip: rect(35px, 9999px, 48px, 0); transform: skew(0.35deg); }
+  75%  { clip: rect(55px, 9999px, 65px, 0); transform: skew(0.8deg); }
+  80%  { clip: rect(22px, 9999px, 38px, 0); transform: skew(0.25deg); }
+  85%  { clip: rect(68px, 9999px, 80px, 0); transform: skew(0.65deg); }
+  90%  { clip: rect(12px, 9999px, 28px, 0); transform: skew(0.42deg); }
+  95%  { clip: rect(48px, 9999px, 62px, 0); transform: skew(0.18deg); }
   100% { clip: rect(67px, 9999px, 98px, 0); transform: skew(0.67deg); }
 }
+
+@keyframes glitch-anim2 {
+  0%   { clip: rect(65px, 9999px, 100px, 0); transform: skew(0.4deg); }
+  20%  { clip: rect(15px, 9999px, 40px,  0); transform: skew(0.9deg); }
+  40%  { clip: rect(80px, 9999px, 95px,  0); transform: skew(0.2deg); }
+  60%  { clip: rect(30px, 9999px, 55px,  0); transform: skew(0.7deg); }
+  80%  { clip: rect(5px,  9999px, 25px,  0); transform: skew(0.5deg); }
+  100% { clip: rect(50px, 9999px, 70px,  0); transform: skew(0.3deg); }
+}
+
 
 /* Gradient Text Stroke */
 .text-stroke {
@@ -189,16 +256,32 @@ body {
   box-shadow: 0 0 15px var(--color-accent-secondary);
 }
 
+/* Standardized Container */
+.max-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+@media (max-width: 640px) {
+  .max-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
 /* Section Watermark */
 .section-watermark {
   position: absolute;
-  top: -50px;
-  left: -20px;
-  font-size: 120px;
+  top: -20px;
+  left: 0;
+  font-size: clamp(4rem, 10vw, 8rem);
   font-weight: 900;
-  opacity: 0.04;
+  opacity: 0.03;
   pointer-events: none;
   white-space: nowrap;
   z-index: -1;
   text-transform: uppercase;
+  font-family: 'Space Grotesk', sans-serif;
 }

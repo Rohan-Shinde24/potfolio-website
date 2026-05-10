@@ -29,14 +29,19 @@ const BackToTop = () => {
     <AnimatePresence>
       {isVisible && (
         <motion.button
-          initial={{ opacity: 0, scale: 0.5, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.5, y: 20 }}
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 50 }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-50 p-4 rounded-full glass-morphism border border-white/10 text-[#06B6D4] shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.5)] transition-all duration-300"
+          className="fixed bottom-8 right-8 z-50 flex items-center gap-3 px-6 py-3 rounded-full glass-morphism border border-[#06B6D4]/30 text-[#06B6D4] shadow-[0_0_20px_rgba(6,182,212,0.2)] group hover:bg-[#06B6D4]/10 transition-all duration-300"
           aria-label="Back to Top"
         >
-          <ArrowUp size={24} strokeWidth={2.5} />
+          <span className="text-xs font-mono font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+            Scroll Up
+          </span>
+          <ArrowUp size={20} strokeWidth={3} className="animate-bounce" />
         </motion.button>
       )}
     </AnimatePresence>
