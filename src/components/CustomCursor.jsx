@@ -1,33 +1,32 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, useSpring } from 'framer-motion';
 
 const CustomCursor = () => {
-  const cursorRef = useRef(null);
-  const secondaryCursorRef = useRef(null);
   const [isHovering, setIsHovering] = useState(false);
   const [isMouseDown, setIsMouseDown] = useState(false);
 
-  const mouseX = useSpring(0, { stiffness: 500, damping: 28, mass: 0.5 });
-  const mouseY = useSpring(0, { stiffness: 500, damping: 28, mass: 0.5 });
+  const mouseX = useSpring(0, { stiffness: 600, damping: 40, mass: 0.5 });
+  const mouseY = useSpring(0, { stiffness: 600, damping: 40, mass: 0.5 });
   
-  const secondaryX = useSpring(0, { stiffness: 250, damping: 20, mass: 0.8 });
-  const secondaryY = useSpring(0, { stiffness: 250, damping: 20, mass: 0.8 });
+  const ringX = useSpring(0, { stiffness: 300, damping: 30, mass: 0.8 });
+  const ringY = useSpring(0, { stiffness: 300, damping: 30, mass: 0.8 });
 
   useEffect(() => {
     const moveCursor = (e) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
-      secondaryX.set(e.clientX);
-      secondaryY.set(e.clientY);
+      ringX.set(e.clientX);
+      ringY.set(e.clientY);
     };
 
     const handleMouseOver = (e) => {
+      const target = e.target;
       if (
-        e.target.tagName.toLowerCase() === 'a' ||
-        e.target.tagName.toLowerCase() === 'button' ||
-        e.target.closest('a') ||
-        e.target.closest('button') ||
-        e.target.classList.contains('cursor-pointer')
+        target.tagName.toLowerCase() === 'a' ||
+        target.tagName.toLowerCase() === 'button' ||
+        target.closest('a') ||
+        target.closest('button') ||
+        target.classList.contains('cursor-pointer')
       ) {
         setIsHovering(true);
       } else {
@@ -49,13 +48,13 @@ const CustomCursor = () => {
       window.removeEventListener('mousedown', handleMouseDown);
       window.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [mouseX, mouseY, secondaryX, secondaryY]);
+  }, [mouseX, mouseY, ringX, ringY]);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-[9999]">
+    <div className="fixed inset-0 pointer-events-none z-[9999] hidden lg:block">
       {/* Primary Dot */}
       <motion.div
-        className="fixed top-0 left-0 w-2 h-2 bg-white rounded-full mix-blend-difference"
+        className="fixed top-0 left-0 w-1.5 h-1.5 bg-black rounded-full mix-blend-difference"
         style={{
           x: mouseX,
           y: mouseY,
@@ -64,40 +63,24 @@ const CustomCursor = () => {
         }}
       />
       
-      {/* Secondary Circle */}
+      {/* Outer Ring */}
       <motion.div
-        className="fixed top-0 left-0 w-8 h-8 border border-white/50 rounded-full"
+        className="fixed top-0 left-0 w-8 h-8 border border-black/20 rounded-full mix-blend-difference"
         animate={{
-          scale: isHovering ? 2.5 : isMouseDown ? 0.8 : 1,
-          backgroundColor: isHovering ? "rgba(255, 255, 255, 0.1)" : "transparent",
-          borderColor: isHovering ? "rgba(255, 255, 255, 0.2)" : "rgba(255, 255, 255, 0.5)",
+          scale: isHovering ? 1.5 : isMouseDown ? 0.8 : 1,
+          opacity: isHovering ? 0.5 : 1,
         }}
         style={{
-          x: secondaryX,
-          y: secondaryY,
+          x: ringX,
+          y: ringY,
           translateX: "-50%",
           translateY: "-50%",
         }}
-        transition={{ type: "spring", stiffness: 250, damping: 20 }}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
       />
-      
-      {/* Outer Glow */}
-      {isHovering && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0 }}
-          className="fixed top-0 left-0 w-16 h-16 bg-violet-500/20 blur-xl rounded-full"
-          style={{
-            x: secondaryX,
-            y: secondaryY,
-            translateX: "-50%",
-            translateY: "-50%",
-          }}
-        />
-      )}
     </div>
   );
 };
 
 export default CustomCursor;
+
