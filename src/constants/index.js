@@ -114,29 +114,8 @@ const projects = [
         color: "pink-text-gradient",
       },
     ],
-    image: "/src/assets/project1.png",
-    source_code_link: "https://github.com/Rohan-Shinde24",
-  },
-  {
-    name: "3D Portfolio",
-    description:
-      "A modern 3D animated portfolio website built with React and Framer Motion, showcasing professional experience and skills.",
-    tags: [
-      {
-        name: "react",
-        color: "blue-text-gradient",
-      },
-      {
-        name: "framer-motion",
-        color: "green-text-gradient",
-      },
-      {
-        name: "tailwind",
-        color: "pink-text-gradient",
-      },
-    ],
-    image: "/src/assets/project2.png",
-    source_code_link: "https://github.com/Rohan-Shinde24",
+    image: "/src/assets/japanese-learning.png",
+    source_code_link: "https://jmaster.netlify.app/",
   },
 ];
 
