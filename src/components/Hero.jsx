@@ -188,4 +188,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;ault Hero;
+export default Hero;
