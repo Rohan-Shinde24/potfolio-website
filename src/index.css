@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+:root {
+  --color-primary: #ffffff;
+  --color-secondary: #4b5563; /* gray-600 */
+  --color-tertiary: #f3f4f6; /* gray-100 */
+  --color-accent-purple: #915EFF;
+  --color-accent-teal: #00cea8;
+  --color-black-100: #f9fafb; /* gray-50 */
+  --color-black-200: #e5e7eb; /* gray-200 */
+  --color-white-100: #111827; /* gray-900 */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+body {
+  background-color: var(--color-primary);
+  color: #111827;
+  overflow-x: hidden;
+}
+
+/* Hide default cursor for custom cursor */
+.hide-cursor * {
+  cursor: none !important;
+}
+
+.hash-span {
+  margin-top: -100px;
+  padding-bottom: 100px;
+  display: block;
+}
+
+.purple-gradient {
+  background: linear-gradient(to right, #915EFF, #bf61ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.teal-gradient {
+  background: linear-gradient(to right, #00cea8, #38ef7d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.black-gradient {
+  background: #000000;
+  background: -webkit-linear-gradient(to right, #434343, #000000);
+  background: linear-gradient(to right, #434343, #000000);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.violet-gradient {
+  background: #804dee;
+  background: linear-gradient(-90deg, #804dee 0%, rgba(243, 244, 246, 0) 100%);
+}
+
+.green-pink-gradient {
+  background: linear-gradient(90.13deg, #00cea8 1.9%, #915EFF 97.5%);
+}
+
+/* Bento Box Glassmorphism - Light Mode */
+.bento-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 24px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.bento-card:hover {
+  border-color: rgba(145, 94, 255, 0.3);
+  box-shadow: 0 10px 40px rgba(145, 94, 255, 0.15);
+  transform: translateY(-5px);
+}
+
+/* Marquee Animation */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 20s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Pulsing Animation */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 10px rgba(145, 94, 255, 0.2); }
+  50% { box-shadow: 0 0 25px rgba(145, 94, 255, 0.5); }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s infinite;
+}
+
+/* Wireframe Sphere Animation */
+@keyframes rotate-sphere {
+  from { transform: rotateY(0deg) rotateX(0deg); }
+  to { transform: rotateY(360deg) rotateX(360deg); }
+}
+
+.sphere-container {
+  perspective: 1000px;
+}
+
+.sphere-wireframe {
+  transform-style: preserve-3d;
+  animation: rotate-sphere 20s linear infinite;
+}
+
+@keyframes blob {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
