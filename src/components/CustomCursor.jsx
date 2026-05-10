@@ -1,17 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useState, useRef } from 'react';
+import { motion, useSpring } from 'framer-motion';
 
 const CustomCursor = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const cursorRef = useRef(null);
+  const secondaryCursorRef = useRef(null);
   const [isHovering, setIsHovering] = useState(false);
+  const [isMouseDown, setIsMouseDown] = useState(false);
+
+  const mouseX = useSpring(0, { stiffness: 500, damping: 28, mass: 0.5 });
+  const mouseY = useSpring(0, { stiffness: 500, damping: 28, mass: 0.5 });
+  
+  const secondaryX = useSpring(0, { stiffness: 250, damping: 20, mass: 0.8 });
+  const secondaryY = useSpring(0, { stiffness: 250, damping: 20, mass: 0.8 });
 
   useEffect(() => {
-    const updateMousePosition = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+    const moveCursor = (e) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+      secondaryX.set(e.clientX);
+      secondaryY.set(e.clientY);
     };
 
     const handleMouseOver = (e) => {
-      // Check if hovering over clickable elements
       if (
         e.target.tagName.toLowerCase() === 'a' ||
         e.target.tagName.toLowerCase() === 'button' ||
@@ -25,63 +35,68 @@ const CustomCursor = () => {
       }
     };
 
-    window.addEventListener('mousemove', updateMousePosition);
-    window.addEventListener('mouseover', handleMouseOver);
+    const handleMouseDown = () => setIsMouseDown(true);
+    const handleMouseUp = () => setIsMouseDown(false);
 
-    // Add hide-cursor class to body
-    document.body.classList.add('hide-cursor');
+    window.addEventListener('mousemove', moveCursor);
+    window.addEventListener('mouseover', handleMouseOver);
+    window.addEventListener('mousedown', handleMouseDown);
+    window.addEventListener('mouseup', handleMouseUp);
 
     return () => {
-      window.removeEventListener('mousemove', updateMousePosition);
+      window.removeEventListener('mousemove', moveCursor);
       window.removeEventListener('mouseover', handleMouseOver);
-      document.body.classList.remove('hide-cursor');
+      window.removeEventListener('mousedown', handleMouseDown);
+      window.removeEventListener('mouseup', handleMouseUp);
     };
-  }, []);
-
-  const variants = {
-    default: {
-      x: mousePosition.x - 16,
-      y: mousePosition.y - 16,
-      backgroundColor: 'rgba(145, 94, 255, 0.4)', // Accent purple with transparency
-      scale: 1,
-      mixBlendMode: 'multiply'
-    },
-    hover: {
-      x: mousePosition.x - 24,
-      y: mousePosition.y - 24,
-      backgroundColor: 'rgba(0, 206, 168, 0.6)', // Accent teal when hovering
-      scale: 1.5,
-      mixBlendMode: 'multiply'
-    }
-  };
+  }, [mouseX, mouseY, secondaryX, secondaryY]);
 
   return (
-    <>
+    <div className="fixed inset-0 pointer-events-none z-[9999]">
+      {/* Primary Dot */}
       <motion.div
-        className="fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-[9999]"
-        variants={variants}
-        animate={isHovering ? 'hover' : 'default'}
-        transition={{
-          type: 'spring',
-          stiffness: 500,
-          damping: 28,
-          mass: 0.5
+        className="fixed top-0 left-0 w-2 h-2 bg-white rounded-full mix-blend-difference"
+        style={{
+          x: mouseX,
+          y: mouseY,
+          translateX: "-50%",
+          translateY: "-50%",
         }}
       />
-      {/* Trailing Dot */}
+      
+      {/* Secondary Circle */}
       <motion.div
-        className="fixed top-0 left-0 w-2 h-2 rounded-full pointer-events-none z-[10000] bg-gray-900"
+        className="fixed top-0 left-0 w-8 h-8 border border-white/50 rounded-full"
         animate={{
-          x: mousePosition.x - 4,
-          y: mousePosition.y - 4,
+          scale: isHovering ? 2.5 : isMouseDown ? 0.8 : 1,
+          backgroundColor: isHovering ? "rgba(255, 255, 255, 0.1)" : "transparent",
+          borderColor: isHovering ? "rgba(255, 255, 255, 0.2)" : "rgba(255, 255, 255, 0.5)",
         }}
-        transition={{
-          type: 'spring',
-          stiffness: 1000,
-          damping: 40,
+        style={{
+          x: secondaryX,
+          y: secondaryY,
+          translateX: "-50%",
+          translateY: "-50%",
         }}
+        transition={{ type: "spring", stiffness: 250, damping: 20 }}
       />
-    </>
+      
+      {/* Outer Glow */}
+      {isHovering && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0 }}
+          className="fixed top-0 left-0 w-16 h-16 bg-violet-500/20 blur-xl rounded-full"
+          style={{
+            x: secondaryX,
+            y: secondaryY,
+            translateX: "-50%",
+            translateY: "-50%",
+          }}
+        />
+      )}
+    </div>
   );
 };
 

@@ -7,6 +7,7 @@ import Projects from './Projects';
 import Contact from './Contact';
 import CustomCursor from './CustomCursor';
 import TechMarquee from './TechMarquee';
+import BackToTop from './BackToTop';
 
 export {
   Hero,
@@ -17,5 +18,6 @@ export {
   Projects,
   Contact,
   CustomCursor,
-  TechMarquee
+  TechMarquee,
+  BackToTop
 }

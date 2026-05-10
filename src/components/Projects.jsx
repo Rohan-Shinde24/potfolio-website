@@ -1,105 +1,202 @@
-import React from "react";
-import { motion } from "framer-motion";
-
-import { styles } from "../styles/styles";
-import { Code } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Github, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
 import SectionWrapper from "../hoc/SectionWrapper";
 import { projects } from "../constants";
-import { fadeIn, textVariant } from "../utils/motion";
 
-const ProjectCard = ({
-  index,
-  name,
-  description,
-  tags,
-  image,
-  source_code_link,
-}) => {
-  const isEven = index % 2 === 0;
+const ProjectCard = ({ project, index, active, total }) => {
+  const [flipped, setFlipped] = useState(false);
+
+  const zIndex = active ? 50 : 50 - Math.abs(index - active);
+  const scale = active ? 1 : 1 - Math.abs(index - active) * 0.1;
+  const rotateY = (index - active) * 20;
+  const x = (index - active) * 150;
 
   return (
-    <div className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-10 mt-20`}>
-      {/* Device Mockup */}
-      <motion.div 
-        variants={fadeIn(isEven ? "right" : "left", "spring", index * 0.5, 0.75)}
-        className='relative flex-1 group'
+    <motion.div
+      initial={false}
+      animate={{
+        x,
+        scale,
+        rotateY,
+        zIndex,
+        opacity: Math.abs(index - active) > 2 ? 0 : 1,
+      }}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      className={`absolute w-[320px] sm:w-[450px] aspect-[4/3] cursor-pointer preserve-3d`}
+      onClick={() => active === index && setFlipped(!flipped)}
+    >
+      <motion.div
+        className="relative w-full h-full transition-all duration-500 preserve-3d"
+        animate={{ rotateY: flipped ? 180 : 0 }}
       >
-        {/* Laptop Frame Mockup (Professional Gray/Silver) */}
-        <div className='relative mx-auto border-gray-900 bg-gray-900 border-[8px] rounded-t-xl h-[172px] max-w-[301px] md:h-[294px] md:max-w-[512px] shadow-2xl'>
-          <div className='rounded-lg overflow-hidden h-[156px] md:h-[278px] bg-white'>
-            <img src={image} className='h-[156px] md:h-[278px] w-full rounded-lg object-cover group-hover:scale-105 transition-transform duration-500' alt={name} />
+        {/* Front Side */}
+        <div className="absolute inset-0 backface-hidden shape-diagonal-cut glass-morphism border border-white/10 overflow-hidden shadow-2xl">
+          <img 
+            src={project.image} 
+            alt={project.name} 
+            className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" 
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent p-8 flex flex-col justify-end">
+            <h3 className="text-white text-2xl font-bold font-space uppercase tracking-tighter">{project.name}</h3>
+            <div className="flex gap-2 mt-3">
+              {project.tags.slice(0, 3).map(tag => (
+                <span key={tag.name} className="text-[10px] uppercase font-mono px-2 py-1 bg-white/10 rounded-md text-white/60">
+                  {tag.name}
+                </span>
+              ))}
+            </div>
+          </div>
+          
+          {/* Flip Indicator */}
+          <div className="absolute top-6 right-6 w-10 h-10 rounded-full glass-morphism flex items-center justify-center border border-white/20 animate-pulse">
+            <span className="text-white/40 text-[10px] font-mono">FLIP</span>
           </div>
         </div>
-        <div className='relative mx-auto bg-gray-800 rounded-b-xl rounded-t-sm h-[17px] max-w-[351px] md:h-[21px] md:max-w-[597px] shadow-lg'>
-          <div className='absolute left-1/2 top-0 -translate-x-1/2 rounded-b-xl w-[56px] h-[5px] md:w-[96px] md:h-[8px] bg-gray-700'></div>
-        </div>
 
-        {/* Floating Phone Mockup */}
-        <motion.div 
-          whileHover={{ scale: 1.1, rotate: -2 }}
-          className="absolute -bottom-10 -right-5 md:-right-10 w-[80px] h-[160px] md:w-[120px] md:h-[240px] border-gray-900 bg-gray-900 border-[4px] rounded-[1.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.3)] z-20 hidden sm:block overflow-hidden"
-        >
-          <img src={image} className="w-full h-full object-cover" alt="" />
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-4 bg-gray-900 rounded-b-lg"></div>
-        </motion.div>
-      </motion.div>
+        {/* Back Side */}
+        <div className="absolute inset-0 backface-hidden [transform:rotateY(180deg)] shape-diagonal-cut glass-morphism border border-white/10 bg-black/40 p-10 flex flex-col justify-between shadow-2xl">
+          <div>
+            <h3 className="text-[#06B6D4] text-3xl font-bold font-space uppercase mb-4">{project.name}</h3>
+            <p className="text-white/70 text-base leading-relaxed">
+              {project.description}
+            </p>
+            <div className="flex flex-wrap gap-2 mt-6">
+              {project.tags.map(tag => (
+                <span key={tag.name} className="text-xs font-mono px-3 py-1 bg-[#7C3AED]/20 border border-[#7C3AED]/30 rounded-full text-white">
+                  #{tag.name}
+                </span>
+              ))}
+            </div>
+          </div>
 
-      {/* Project Info */}
-      <motion.div 
-        variants={fadeIn(isEven ? "left" : "right", "spring", index * 0.5, 0.75)}
-        className='flex-1'
-      >
-        <h3 className='text-gray-900 font-bold text-[32px] mb-4'>{name}</h3>
-        <p className='text-gray-600 text-[18px] leading-[30px] mb-8'>{description}</p>
-
-        <div className='flex flex-wrap gap-3 mb-8'>
-          {tags.map((tag) => (
-            <span
-              key={`${name}-${tag.name}`}
-              className={`px-4 py-1 rounded-full text-[14px] border border-gray-200 ${tag.color.replace('text-gradient', '')} bg-gray-50 font-medium`}
+          <div className="flex gap-4">
+            <a 
+              href={project.source_code_link} 
+              target="_blank" 
+              rel="noreferrer"
+              className="flex-1 py-3 glass-morphism border border-white/10 rounded-xl flex items-center justify-center gap-2 text-white hover:bg-white/5 transition-all"
+              onClick={(e) => e.stopPropagation()}
             >
-              #{tag.name}
-            </span>
-          ))}
+              <Github size={18} />
+              <span>GitHub</span>
+            </a>
+            <a 
+              href={project.source_code_link} // Using the same link if demo is not available in constants
+              target="_blank" 
+              rel="noreferrer"
+              className="flex-1 py-3 bg-[#7C3AED] rounded-xl flex items-center justify-center gap-2 text-white shadow-lg shadow-violet-500/20 hover:bg-[#6D28D9] transition-all"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <ExternalLink size={18} />
+              <span>Demo</span>
+            </a>
+          </div>
         </div>
-
-        <button 
-          onClick={() => window.open(source_code_link, "_blank")}
-          className="flex items-center gap-2 bg-[#915EFF] hover:bg-[#804dee] text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-purple-500/20 transition-all hover:-translate-y-1"
-        >
-          <Code size={20} />
-          View Source Code
-        </button>
       </motion.div>
-    </div>
+    </motion.div>
   );
 };
 
 const Projects = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [filter, setFilter] = useState("All");
+  
+  const techFilters = ["All", "React", "Node", "MongoDB", "Tailwind"];
+  
+  const filteredProjects = filter === "All" 
+    ? projects 
+    : projects.filter(p => p.tags.some(t => t.name.toLowerCase().includes(filter.toLowerCase())));
+
+  const nextProject = () => setActiveIndex((prev) => (prev + 1) % filteredProjects.length);
+  const prevProject = () => setActiveIndex((prev) => (prev - 1 + filteredProjects.length) % filteredProjects.length);
+
+  useEffect(() => {
+    setActiveIndex(0);
+  }, [filter]);
+
   return (
-    <>
-      <motion.div variants={textVariant()}>
-        <p className={`${styles.sectionSubText} `}>My work</p>
-        <h2 className={`${styles.sectionHeadText}`}>Projects.</h2>
-      </motion.div>
+    <div className="relative">
+      <div className="section-watermark">Works</div>
 
-      <div className='w-full flex'>
-        <motion.p
-          variants={fadeIn("", "", 0.1, 1)}
-          className='mt-3 text-gray-600 text-[17px] max-w-3xl leading-[30px]'
+      <div className="flex flex-col md:flex-row items-end justify-between gap-8 mb-16">
+        <motion.div 
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
         >
-          Following projects showcases my skills and experience through
-          real-world examples of my work.
-        </motion.p>
+          <p className="text-[#06B6D4] font-mono mb-2">04. Portfolio</p>
+          <h2 className="text-5xl font-bold text-white font-space">Featured Projects.</h2>
+        </motion.div>
+
+        {/* Filter Bar */}
+        <div className="flex gap-2 overflow-x-auto pb-2 w-full md:w-auto">
+          {techFilters.map(f => (
+            <button
+              key={f}
+              onClick={() => setFilter(f)}
+              className={`px-4 py-2 rounded-lg text-sm font-bold font-space uppercase transition-all ${
+                filter === f 
+                  ? "bg-[#06B6D4] text-black" 
+                  : "bg-white/5 text-white/40 border border-white/10 hover:bg-white/10"
+              }`}
+            >
+              {f}
+            </button>
+          ))}
+        </div>
       </div>
 
-      <div className='flex flex-col gap-20'>
-        {projects.map((project, index) => (
-          <ProjectCard key={`project-${index}`} index={index} {...project} />
-        ))}
+      {/* Stacked Deck Container */}
+      <div className="relative h-[500px] flex items-center justify-center perspective-[2000px] overflow-hidden sm:overflow-visible">
+        <div className="relative w-full h-full flex items-center justify-center">
+          {filteredProjects.map((project, index) => (
+            <ProjectCard 
+              key={project.name} 
+              project={project} 
+              index={index} 
+              active={activeIndex}
+              total={filteredProjects.length}
+            />
+          ))}
+        </div>
+
+        {/* Controls */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-8 z-[100]">
+          <button 
+            onClick={prevProject}
+            className="w-12 h-12 rounded-full glass-morphism border border-white/10 flex items-center justify-center text-white hover:bg-white/10 transition-all"
+          >
+            <ChevronLeft size={24} />
+          </button>
+          
+          <div className="flex gap-2">
+            {filteredProjects.map((_, i) => (
+              <div 
+                key={i} 
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${i === activeIndex ? "w-8 bg-[#06B6D4]" : "bg-white/20"}`}
+              />
+            ))}
+          </div>
+
+          <button 
+            onClick={nextProject}
+            className="w-12 h-12 rounded-full glass-morphism border border-white/10 flex items-center justify-center text-white hover:bg-white/10 transition-all"
+          >
+            <ChevronRight size={24} />
+          </button>
+        </div>
       </div>
-    </>
+
+      <style jsx>{`
+        .preserve-3d {
+          transform-style: preserve-3d;
+        }
+        .backface-hidden {
+          backface-visibility: hidden;
+        }
+      `}</style>
+    </div>
   );
 };
 
-export default SectionWrapper(Projects, "");
+export default SectionWrapper(Projects, "projects");

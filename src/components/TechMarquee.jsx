@@ -3,32 +3,48 @@ import { technologies } from '../constants';
 
 const TechMarquee = () => {
   // Duplicate the array to create a seamless infinite scroll
-  const marqueeItems = [...technologies, ...technologies, ...technologies];
+  const marqueeItems = [...technologies, ...technologies, ...technologies, ...technologies];
 
   return (
-    <div className="py-10 bg-white overflow-hidden relative flex flex-col justify-center border-y border-gray-100">
-      <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white to-transparent z-10"></div>
-      <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-white to-transparent z-10"></div>
+    <div className="py-20 bg-transparent overflow-hidden relative flex flex-col justify-center border-y border-white/5">
+      {/* Edge Fades */}
+      <div className="absolute inset-y-0 left-0 w-48 bg-gradient-to-r from-[#040812] to-transparent z-10 pointer-events-none"></div>
+      <div className="absolute inset-y-0 right-0 w-48 bg-gradient-to-l from-[#040812] to-transparent z-10 pointer-events-none"></div>
       
-      <div className="animate-marquee flex gap-16 items-center">
+      <div className="animate-marquee flex gap-24 items-center">
         {marqueeItems.map((tech, index) => (
           <div 
             key={`marquee-${tech.name}-${index}`}
-            className="flex flex-col items-center justify-center gap-2 group cursor-pointer"
+            className="flex items-center gap-4 group cursor-default"
           >
-            <div className="w-20 h-20 bg-gray-50 rounded-2xl flex items-center justify-center shadow-sm border border-gray-100 group-hover:shadow-md group-hover:-translate-y-2 transition-all duration-300">
+            <div className="w-14 h-14 glass-morphism rounded-xl flex items-center justify-center border border-white/5 group-hover:border-[#06B6D4]/30 transition-all duration-500">
               <img 
                 src={tech.icon} 
                 alt={tech.name} 
-                className="w-12 h-12 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+                className="w-8 h-8 object-contain filter grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 scale-90 group-hover:scale-110"
               />
             </div>
-            <p className="text-gray-500 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <p className="text-white/20 font-space font-bold uppercase tracking-[0.3em] text-xl group-hover:text-[#7C3AED] transition-colors duration-500">
               {tech.name}
             </p>
           </div>
         ))}
       </div>
+
+      <style jsx>{`
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+          display: flex;
+          width: max-content;
+          animation: marquee 40s linear infinite;
+        }
+        .animate-marquee:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
     </div>
   );
 };

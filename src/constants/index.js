@@ -38,34 +38,50 @@ const technologies = [
   {
     name: "HTML 5",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+    category: "Frontend",
+    level: "Advanced",
   },
   {
     name: "CSS 3",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+    category: "Frontend",
+    level: "Advanced",
   },
   {
     name: "JavaScript",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+    category: "Frontend",
+    level: "Advanced",
   },
   {
     name: "React JS",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+    category: "Frontend",
+    level: "Intermediate",
   },
   {
     name: "Tailwind CSS",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
+    category: "Frontend",
+    level: "Advanced",
   },
   {
     name: "Node JS",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+    category: "Backend",
+    level: "Intermediate",
   },
   {
     name: "MongoDB",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+    category: "Backend",
+    level: "Intermediate",
   },
   {
     name: "git",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+    category: "Tools",
+    level: "Advanced",
   },
 ];
 
