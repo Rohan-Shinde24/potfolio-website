@@ -44,11 +44,20 @@ const TechMarquee = () => {
               style={{ animationDelay: `${idx * 0.15}s` }}
             >
               {/* Icon floats above the panel */}
-              <div className="chip-icon">
+              <div 
+                className="chip-icon"
+                style={{ 
+                  backgroundColor: "var(--color-bg)" 
+                }}
+              >
                 <img
                   src={tech.icon}
                   alt={tech.name}
                   className="w-7 h-7 object-contain"
+                  style={{ 
+                    transform: tech.name === "Streamlit" ? "scale(1.8)" : "none",
+                    filter: (tech.name === "GitHub" || tech.name === "Express JS") ? "brightness(0) invert(1)" : "none"
+                  }}
                 />
               </div>
               <span className="chip-label">{tech.name}</span>
@@ -148,10 +157,11 @@ const TechMarquee = () => {
 
         /* Label on the panel surface */
         .chip-label {
-          font-size: 8px;
-          font-weight: 900;
+          font-family: 'Ubuntu', sans-serif;
+          font-size: 9px;
+          font-weight: 700;
           text-transform: uppercase;
-          letter-spacing: 0.16em;
+          letter-spacing: 0.12em;
           color: var(--color-text-muted);
           text-align: center;
           line-height: 1.3;

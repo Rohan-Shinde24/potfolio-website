@@ -23,7 +23,7 @@ const Navbar = () => {
         scrolled ? "glass-panel !py-4 shadow-sm" : "bg-transparent"
       }`}
     >
-      <div className="max-container flex justify-between items-center   px-6">
+      <div className="max-container flex justify-between items-center  px-6">
         {/* Logo - Column 1 */}
         <div className="flex-1 ">
           <Link
@@ -34,14 +34,14 @@ const Navbar = () => {
               window.scrollTo(0, 0);
             }}
           >
-            <span className="text-2xl font-extrabold tracking-tighter text-[var(--color-text)]">
+            <span className="text-2xl  font-extrabold tracking-tighter text-[var(--color-text)]" style={{ fontFamily: 'Orbitron, sans-serif' }}>
               ROHAN<span className="text-[var(--color-primary)]">.</span>
             </span>
           </Link>
         </div>
 
         {/* Desktop Links - Column 2 (Middle) */}
-        <ul className="list-none hidden md:flex flex-row gap-10 items-center justify-center flex-1">
+        <ul className="list-none  hidden md:flex flex-row gap-10 items-center justify-center flex-1">
           {navLinks.map((link) => (
             <li
               key={link.id}
@@ -49,7 +49,8 @@ const Navbar = () => {
                 active === link.title
                   ? "text-[var(--color-primary)]"
                   : "text-[var(--color-text-muted)]"
-              } hover:text-[var(--color-text)] text-sm font-medium uppercase tracking-widest cursor-pointer transition-standard`}
+              } hover:text-[var(--color-text)] text-xs font-bold uppercase tracking-widest cursor-pointer transition-standard`}
+              style={{ fontFamily: 'Ubuntu, sans-serif' }}
               onClick={() => setActive(link.title)}
             >
               <a href={`#${link.id}`}>{link.title}</a>
@@ -63,7 +64,7 @@ const Navbar = () => {
             href="https://github.com/Rohan-Shinde24"
             target="_blank"
             rel="noreferrer"
-            className="text-[#181717] dark:text-white hover:scale-110 transition-standard"
+            className="text-[var(--color-text)] hover:scale-110 transition-standard"
           >
             <Github size={20} />
           </a>

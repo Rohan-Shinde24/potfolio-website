@@ -26,31 +26,35 @@
   top: 50%;
   left: 50%;
   width: 420px;
-  height: 580px;
-  background: rgba(15, 15, 18, 0.8);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  height: 620px;
+  background: rgba(15, 15, 18, 0.85);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 40px;
-  padding: 2.5rem;
+  border-radius: 48px;
+  padding: 3rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
   box-shadow: 
     0 4px 24px rgba(0, 0, 0, 0.4),
     inset 0 0 0 1px rgba(255, 255, 255, 0.03);
   overflow: hidden;
   cursor: pointer;
+  font-family: 'Poppins', sans-serif;
 }
 
 /* ── Card Hover Effects ── */
 .premium-card:hover {
-  transform: translate(-50%, -60%) scale(1.05) !important;
-  border-color: rgba(37, 99, 235, 0.4);
+  background: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  padding: 4rem !important;
+  border-color: rgba(37, 99, 235, 0.6);
   box-shadow: 
-    0 40px 100px rgba(0, 0, 0, 0.6),
-    0 0 40px rgba(37, 99, 235, 0.2);
+    0 40px 100px rgba(0, 0, 0, 0.8),
+    0 0 60px rgba(37, 99, 235, 0.3);
 }
 
 .premium-card::before {
@@ -107,18 +111,27 @@
 }
 
 .card-title {
-  font-family: 'Outfit', sans-serif;
-  font-size: 28px;
-  font-weight: 700;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 32px;
+  font-weight: 900;
   color: #fff;
   letter-spacing: -0.02em;
   line-height: 1.1;
+  text-transform: uppercase;
+  transition: all 0.4s ease;
+}
+
+.premium-card:hover .card-title {
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.1em;
+  transform: translateY(-10px);
 }
 
 .card-description {
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.5);
-  line-height: 1.6;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.7;
   overflow-wrap: break-word;
   word-break: break-word;
   display: -webkit-box;
@@ -126,6 +139,13 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  transition: color 0.4s ease;
+}
+
+.premium-card:hover .card-description {
+  color: rgba(255, 255, 255, 1);
+  transform: translateY(-5px);
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
 }
 
 /* ── Premium Button ── */
@@ -168,19 +188,100 @@
 /* ── Mobile Optimization ── */
 @media (max-width: 768px) {
   .premium-card {
-    width: 280px;
-    height: 480px;
-    padding: 1.5rem;
-    gap: 1.5rem;
+    width: 250px;
+    height: 440px;
+    padding: 1.25rem;
+    gap: 1.25rem;
+    border-radius: 32px;
   }
   
+  .premium-card:hover {
+    padding: 2.5rem !important;
+  }
+
   .card-title {
-    font-size: 20px;
+    font-size: 18px;
   }
   
   .card-description {
-    font-size: 12px;
+    font-size: 11px;
     line-clamp: 2;
     -webkit-line-clamp: 2;
+  }
+
+  .navigation-controls {
+    display: flex;
+  }
+}
+
+/* ── Navigation Arrows ── */
+.navigation-controls {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2rem;
+  z-index: 300;
+  pointer-events: none;
+}
+
+.nav-arrow {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: auto;
+}
+
+.nav-arrow:hover {
+  background: white;
+  color: black;
+  transform: scale(1.1);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+}
+
+.nav-arrow.prev {
+  transform: translateX(-20px);
+}
+
+.nav-arrow.next {
+  transform: translateX(20px);
+}
+
+.nav-arrow:hover.prev {
+  transform: translateX(-20px) scale(1.1);
+}
+
+.nav-arrow:hover.next {
+  transform: translateX(20px) scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .navigation-controls {
+    padding: 0 1rem;
+  }
+  
+  .nav-arrow {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .nav-arrow.prev {
+    transform: translateX(0);
+  }
+  
+  .nav-arrow.next {
+    transform: translateX(0);
   }
 }

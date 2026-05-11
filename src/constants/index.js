@@ -1,6 +1,7 @@
 import project1 from "../assets/japanese-learning.png";
 import renderIcon from "../assets/images.png";
 import streamlitIcon from "../assets/streamlit-logo-secondary-colormark-darktext.png";
+import cropProject from "../assets/crop-project.png";
 
 export const navLinks = [
   { id: "about",   title: "About" },
@@ -96,7 +97,7 @@ const projects = [
       { name: "Streamlit", color: "#FF4B4B" },
       { name: "ML", color: "#A855F7" },
     ],
-    image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&q=80",
+    image: cropProject,
     github_link: "https://github.com/Rohan-Shinde24",
     live_link: "https://ai-based-crop-recommendation-system.streamlit.app/",
   },

@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
-import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, ExternalLink, ArrowRight, Github } from "lucide-react";
 import "./BounceCards.css";
 
@@ -20,6 +19,15 @@ export default function BounceCards({
 }) {
   const containerRef = useRef(null);
   const [focusedIdx, setFocusedIdx] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev + 1) % projects.length);
+  };
+
+  const handlePrev = () => {
+    setActiveIndex((prev) => (prev - 1 + projects.length) % projects.length);
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -57,9 +65,15 @@ export default function BounceCards({
     if (focusedIdx !== null) {
       pushSiblings(focusedIdx);
     } else {
-      resetSiblings();
+      // In mobile, we follow activeIndex if no hover
+      const isMobile = window.innerWidth < 768;
+      if (isMobile) {
+        pushSiblings(activeIndex);
+      } else {
+        resetSiblings();
+      }
     }
-  }, [focusedIdx]);
+  }, [focusedIdx, activeIndex]);
 
   const pushSiblings = (hoveredIdx) => {
     if (!containerRef.current) return;
@@ -71,8 +85,12 @@ export default function BounceCards({
       const baseTransform = transformStyles[i] || "none";
 
       if (i === hoveredIdx) {
+        // Extract translateX to keep it in place but remove rotation for focus
+        const translateXMatch = baseTransform.match(/translateX\(([-0-9.]+)px\)/);
+        const translateX = translateXMatch ? translateXMatch[0] : "translateX(0px)";
+        
         gsap.to(target, {
-          transform: `translate(-50%, -60%) rotate(0deg) scale(1.05)`,
+          transform: `translate(-50%, -60%) ${translateX} scale(1)`,
           filter: "blur(0px)",
           opacity: 1,
           duration: 0.6,
@@ -80,14 +98,14 @@ export default function BounceCards({
           zIndex: 100,
         });
       } else {
-        const offsetX = i < hoveredIdx ? -160 : 160;
+        const offsetX = i < hoveredIdx ? -80 : 80;
         const pushedTransform = baseTransform.replace(/translateX\(([-0-9.]+)px\)/, (match, p1) => {
           return `translateX(${parseFloat(p1) + offsetX}px)`;
         });
         gsap.to(target, {
-          transform: `translate(-50%, -50%) ${pushedTransform} scale(0.9)`,
-          filter: "blur(8px)",
-          opacity: 0.2,
+          transform: `translate(-50%, -50%) ${pushedTransform} scale(0.95)`,
+          filter: "blur(12px)",
+          opacity: 0.15,
           duration: 0.6,
           ease: "expo.out",
           zIndex: i,
@@ -124,10 +142,6 @@ export default function BounceCards({
     card.style.setProperty("--mouse-y", `${y}px`);
   };
 
-  const getDetailPosition = (idx) => {
-    return idx < Math.floor(projects.length / 2) ? "right" : "left";
-  };
-
   return (
     <div
       ref={containerRef}
@@ -135,6 +149,16 @@ export default function BounceCards({
       style={{ width: "100%", height: containerHeight }}
     >
       <div className="project-bg-glow" />
+
+      {/* Navigation Arrows */}
+      <div className="navigation-controls">
+        <button className="nav-arrow prev" onClick={handlePrev} aria-label="Previous Project">
+          <ChevronLeft size={32} />
+        </button>
+        <button className="nav-arrow next" onClick={handleNext} aria-label="Next Project">
+          <ChevronRight size={32} />
+        </button>
+      </div>
 
       {projects.map((project, idx) => (
         <div
@@ -196,45 +220,6 @@ export default function BounceCards({
         </div>
       ))}
 
-      {/* Cinematic Detail Overlay (Side) */}
-      <AnimatePresence>
-        {focusedIdx !== null && (
-          <motion.div
-            initial={{ opacity: 0, x: getDetailPosition(focusedIdx) === "right" ? 100 : -100, filter: "blur(20px)" }}
-            animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-            exit={{ opacity: 0, x: getDetailPosition(focusedIdx) === "right" ? 50 : -50, filter: "blur(20px)" }}
-            className={`hidden xl:flex flex-col gap-8 absolute top-1/2 -translate-y-1/2 w-[400px] p-12 glass-panel rounded-[48px] z-[200] ${
-              getDetailPosition(focusedIdx) === "right" ? "left-[calc(50%+240px)]" : "right-[calc(50%+240px)]"
-            }`}
-          >
-            <div className="flex items-center gap-4">
-              <div className="w-2 h-12 bg-primary rounded-full shadow-[0_0_20px_rgba(37,99,235,0.5)]" />
-              <div>
-                <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary mb-1">Architecture</h4>
-                <span className="text-sm font-bold text-white">Project Insight</span>
-              </div>
-            </div>
-
-            <p className="text-sm text-white/50 leading-relaxed font-medium">
-              {projects[focusedIdx].description}
-            </p>
-
-            <div className="h-[1px] w-full bg-gradient-to-r from-white/10 to-transparent" />
-
-            <div className="flex flex-col gap-4">
-              <span className="text-[10px] uppercase tracking-widest font-black text-white/30">Technology Stack</span>
-              <div className="flex gap-3 flex-wrap">
-                {projects[focusedIdx].tags?.map(tag => (
-                  <div key={tag.name} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-                     <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: tag.color }} />
-                     <span className="text-xs font-bold text-white/70">{tag.name}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }

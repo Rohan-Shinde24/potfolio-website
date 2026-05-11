@@ -62,7 +62,7 @@ const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-bg)] via-transparent to-[var(--color-bg)] opacity-100" />
       </div>
 
-      <div className="max-container w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center pt-28 pb-16 z-10">
+      <div className="max-container w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center pt-32 pb-32 z-10">
         {/* Left Content */}
         <motion.div
           className="lg:col-span-7 flex flex-col items-start text-left"
@@ -76,50 +76,59 @@ const Hero = () => {
             className="flex items-center gap-3 mb-5"
           >
             <div className="h-[2px] w-6 bg-[var(--color-primary)]" />
-            <span className="text-[var(--color-primary)] font-mono text-xs font-bold tracking-[0.2em] uppercase">
-              Software Engineer & AI Enthusiast
+            <span
+              className="text-[var(--color-primary)] font-bold text-xs tracking-[0.2em] uppercase"
+              style={{ fontFamily: "Ubuntu, sans-serif" }}
+            >
+              Software Engineer
             </span>
           </motion.div>
 
           {/* Title */}
           <motion.h1
             variants={itemVariants}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-[var(--color-text)] mb-5 leading-[1.15] tracking-tight"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-[var(--color-text)]  leading-[1.15] tracking-tight"
           >
             Architecting <br />
             <span className="text-[var(--color-primary)]">Next-Gen</span> <br />
-            <span className="font-mono font-medium tracking-tighter text-[var(--color-text-muted)] text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
+            <span
+              className=" text-2xl sm:text-3xl md:text-4xl lg:text-6xl text-[var(--color-primary)] opacity-100 italic"
+              style={{ fontFamily: "Caveat, cursive" }}
+            >
               Digital Solutions
             </span>
             <span className="inline-block w-[3px] h-7 md:h-10 bg-[var(--color-primary)] ml-2 align-baseline animate-pulse" />
           </motion.h1>
+          <br />
 
           {/* Description */}
           <motion.p
             variants={itemVariants}
-            className="text-sm sm:text-base md:text-lg text-[var(--color-text-muted)] max-w-xl mb-10 leading-relaxed"
+            className="text-sm sm:text-base md:text-lg text-gray-700 max-w-xl mb-10 leading-relaxed"
+            style={{ fontFamily: "Kalam, cursive" }}
           >
             I am{" "}
-            <strong className="text-[var(--color-text)] font-semibold">
+            <strong className="text-[var(--color-text)] font-bold">
               Rohan Shinde
             </strong>
             , a Fullstack Developer specializing in building robust, scalable
             web applications.
           </motion.p>
-
+          <br />
           {/* Action Buttons & Socials */}
           <motion.div
             variants={itemVariants}
             className="flex flex-col sm:flex-row items-start sm:items-center gap-6 w-full sm:w-auto"
           >
             <Button
-              size="lg"
-              variant="primary"
-              icon={ChevronRight}
-              className="w-full sm:w-auto"
-              onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+              className="px-12 py-4 sm:w-auto hover:translate-y-0 hover:shadow-[0_8px_30px_rgb(34,60,80,0.2)] tracking-[0.2em] uppercase font-black text-[10px]"
+              onClick={() =>
+                document
+                  .getElementById("projects")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
             >
-              View Selected Works
+              <spam> </spam>View Selected Works<span> </span>
             </Button>
 
             <div className="hidden sm:block h-12 w-[1px] bg-[var(--color-border)]" />

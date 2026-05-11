@@ -11,11 +11,20 @@ const SkillCard = ({ tech, index }) => {
       transition={{ duration: 0.3, delay: index * 0.05 }}
       className="pro-card flex items-center gap-4 !p-4"
     >
-      <div className="w-10 h-10 rounded-lg bg-[var(--color-bg)] border border-[var(--color-border)] flex items-center justify-center p-2 shrink-0">
+      <div 
+        className="w-10 h-10 rounded-lg border border-[var(--color-border)] flex items-center justify-center p-2 shrink-0"
+        style={{ 
+          backgroundColor: "var(--color-bg)" 
+        }}
+      >
         <img
           src={tech.icon}
           alt={tech.name}
-          className="w-full h-full object-contain grayscale"
+          className="w-full h-full object-contain"
+          style={{ 
+            transform: tech.name === "Streamlit" ? "scale(1.8)" : "none",
+            filter: (tech.name === "GitHub" || tech.name === "Express JS") ? "brightness(0) invert(1)" : "none"
+          }}
         />
       </div>
       <div>

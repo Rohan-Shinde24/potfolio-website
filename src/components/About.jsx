@@ -24,7 +24,7 @@ const About = () => {
                 className="w-6 h-6 object-contain grayscale"
               />
             </div>
-            <h3 className="text-sm font-bold uppercase tracking-widest text-[var(--color-text)]">
+            <h3 className="text-xs font-bold uppercase tracking-widest text-[var(--color-text)]" style={{ fontFamily: 'Ubuntu, sans-serif' }}>
               {service.title}
             </h3>
           </motion.div>
