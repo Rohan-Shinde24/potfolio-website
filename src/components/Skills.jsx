@@ -9,10 +9,10 @@ const SkillCard = ({ tech, index }) => {
       initial={{ opacity: 0, scale: 0.9 }}
       whileInView={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.3, delay: index * 0.05 }}
-      className="pro-card flex items-center gap-4 !p-4"
+      className="pro-card flex flex-col items-center justify-center gap-2 !p-2 text-center"
     >
       <div 
-        className="w-10 h-10 rounded-lg border border-[var(--color-border)] flex items-center justify-center p-2 shrink-0"
+        className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg border border-[var(--color-border)] flex items-center justify-center p-1.5 shrink-0"
         style={{ 
           backgroundColor: "var(--color-bg)" 
         }}
@@ -27,9 +27,9 @@ const SkillCard = ({ tech, index }) => {
           }}
         />
       </div>
-      <div>
-        <h3 className="text-sm font-bold text-[var(--color-text)] tracking-tight">{tech.name}</h3>
-        <p className="text-[10px] text-[var(--color-text-muted)] font-bold uppercase tracking-wider">{tech.level || "Intermediate"}</p>
+      <div className="flex flex-col items-center">
+        <h3 className="text-[10px] sm:text-sm font-bold text-[var(--color-text)] tracking-tight line-clamp-1">{tech.name}</h3>
+        <p className="hidden sm:block text-[10px] text-[var(--color-text-muted)] font-bold uppercase tracking-wider">{tech.level || "Intermediate"}</p>
       </div>
     </motion.div>
   );
@@ -86,7 +86,7 @@ const Skills = () => {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 min-h-[300px]">
+        <div className="grid grid-cols-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-4 min-h-[200px]">
           <AnimatePresence mode="wait">
             {filteredTech.map((tech, index) => (
               <SkillCard key={tech.name} tech={tech} index={index} />

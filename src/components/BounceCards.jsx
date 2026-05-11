@@ -17,6 +17,7 @@ export default function BounceCards({
     "rotate(8deg) translateX(420px)",
   ],
 }) {
+  const isMobile = window.innerWidth < 768;
   const containerRef = useRef(null);
   const [focusedIdx, setFocusedIdx] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -78,6 +79,7 @@ export default function BounceCards({
   const pushSiblings = (hoveredIdx) => {
     if (!containerRef.current) return;
     const q = gsap.utils.selector(containerRef);
+    const isMobile = window.innerWidth < 768;
 
     projects.forEach((_, i) => {
       const target = q(`.card-${i}`);
@@ -85,12 +87,11 @@ export default function BounceCards({
       const baseTransform = transformStyles[i] || "none";
 
       if (i === hoveredIdx) {
-        // Extract translateX to keep it in place but remove rotation for focus
-        const translateXMatch = baseTransform.match(/translateX\(([-0-9.]+)px\)/);
-        const translateX = translateXMatch ? translateXMatch[0] : "translateX(0px)";
+        // In mobile focus, we want it perfectly centered (translateX(0px))
+        const translateX = isMobile ? "translateX(0px)" : (baseTransform.match(/translateX\(([-0-9.]+)px\)/)?.[0] || "translateX(0px)");
         
         gsap.to(target, {
-          transform: `translate(-50%, -60%) ${translateX} scale(1)`,
+          transform: `translate(-50%, -50%) ${translateX} scale(1)`,
           filter: "blur(0px)",
           opacity: 1,
           duration: 0.6,
@@ -98,14 +99,19 @@ export default function BounceCards({
           zIndex: 100,
         });
       } else {
-        const offsetX = i < hoveredIdx ? -80 : 80;
+        // Calculate offset based on distance from focus
+        const distance = i - hoveredIdx;
+        const baseOffset = isMobile ? 120 : 80;
+        const offsetX = distance < 0 ? -baseOffset : baseOffset;
+        
         const pushedTransform = baseTransform.replace(/translateX\(([-0-9.]+)px\)/, (match, p1) => {
           return `translateX(${parseFloat(p1) + offsetX}px)`;
         });
+
         gsap.to(target, {
-          transform: `translate(-50%, -50%) ${pushedTransform} scale(0.95)`,
-          filter: "blur(12px)",
-          opacity: 0.15,
+          transform: `translate(-50%, -50%) ${pushedTransform} scale(0.9)`,
+          filter: "blur(8px)",
+          opacity: isMobile ? 0.05 : 0.15,
           duration: 0.6,
           ease: "expo.out",
           zIndex: i,
@@ -165,9 +171,19 @@ export default function BounceCards({
           key={idx}
           className={`card premium-card card-${idx} group`}
           onMouseMove={(e) => handleMouseMove(e, idx)}
-          onMouseEnter={() => setFocusedIdx(idx)}
-          onMouseLeave={() => setFocusedIdx(null)}
-          onClick={() => window.open(project.live_link, "_blank")}
+          onMouseEnter={() => !isMobile && setFocusedIdx(idx)}
+          onMouseLeave={() => !isMobile && setFocusedIdx(null)}
+          onClick={() => {
+            if (isMobile) {
+              if (activeIndex === idx) {
+                window.open(project.live_link, "_blank");
+              } else {
+                setActiveIndex(idx);
+              }
+            } else {
+              window.open(project.live_link, "_blank");
+            }
+          }}
         >
           {/* Card Header: Image */}
           <div className="card-image-wrapper">

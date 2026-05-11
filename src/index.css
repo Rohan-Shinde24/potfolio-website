@@ -167,4 +167,12 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }
+/* Hero Mobile Gap Fix */
+@media (max-width: 768px) {
+  .hero-mobile-gap {
+    padding-top: 100px !important;
+    
+  }
+} 
+
 ::selection { background-color: var(--color-primary); color: white; }

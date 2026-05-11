@@ -39,7 +39,7 @@ const Hero = () => {
   return (
     <section
       ref={containerRef}
-      className="relative w-full min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative w-full min-h-screen flex items-start sm:items-center justify-center overflow-hidden"
       id="hero"
     >
       {/* Background Effect: Lines with Edge Fade */}
@@ -62,7 +62,9 @@ const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-bg)] via-transparent to-[var(--color-bg)] opacity-100" />
       </div>
 
-      <div className="max-container w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center pt-32 pb-32 z-10">
+      <div 
+        className="max-container w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center pt-32 pb-32 z-10 hero-mobile-gap"
+      >
         {/* Left Content */}
         <motion.div
           className="lg:col-span-7 flex flex-col items-start text-left"
