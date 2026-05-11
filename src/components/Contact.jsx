@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { Github, Linkedin, Twitter, Copy, Check, Mail, ExternalLink } from "lucide-react";
-import SectionWrapper from "../hoc/SectionWrapper";
+import { Github, Linkedin, Copy, Check, Mail } from "lucide-react";
 import { MY_EMAIL } from "../constants";
+import Button from "./Button";
 
-const GITHUB_URL  = "https://github.com/Rohan-Shinde24";
+const GITHUB_URL = "https://github.com/Rohan-Shinde24";
 const LINKEDIN_URL = "https://www.linkedin.com/in/rohan-shinde-24/";
 
 const Contact = () => {
@@ -32,125 +31,148 @@ const Contact = () => {
   };
 
   return (
-    <div className="w-full">
-      <div className="flex flex-col mb-20">
-        <motion.span 
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          className="text-[var(--color-primary)] font-mono text-xs font-bold tracking-[0.3em] uppercase mb-4"
-        >
-          03 / Contact
-        </motion.span>
-        <motion.h2 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          className="title-lg text-[var(--color-text)]"
-        >
-          Let's Build Something <br />
-          <span className="text-[var(--color-text-muted)]">Extraordinary.</span>
-        </motion.h2>
-      </div>
+    <section className="relative w-full min-h-screen py-24 bg-white text-black overflow-hidden flex justify-center">
+      
+      {/* CSS Dot Grid Background matching the image */}
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:32px_32px] opacity-70" />
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-        {/* Form */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          className="lg:col-span-7"
-        >
-          <form onSubmit={handleSendGmail} className="flex flex-col gap-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="flex flex-col gap-2">
-                <label className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-muted)]">Your Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={form.name}
-                  onChange={handleChange}
-                  required
-                  placeholder="John Doe"
-                  className="bg-transparent border-b border-[var(--color-border)] py-4 text-[var(--color-text)] outline-none focus:border-[var(--color-primary)] transition-standard"
-                />
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-6 lg:px-12 flex flex-col justify-between">
+        
+        <div>
+          {/* Header Section */}
+          <div className="mb-20">
+            <h3 className="text-blue-600 font-mono text-sm font-bold tracking-[0.2em] uppercase mb-4 flex items-center gap-4">
+              03 / Contact
+            </h3>
+            
+            <h2 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1]">
+              Let's Build Something <br />
+              <span className="text-gray-400 font-medium">Extraordinary.</span>
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
+            
+            {/* Left Column: Form */}
+            <div className="lg:col-span-7">
+              <form onSubmit={handleSendGmail} className="flex flex-col gap-12">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-12">
+                  
+                  {/* Name Input */}
+                  <div className="flex flex-col gap-2">
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-gray-500">
+                      Your Name
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={form.name}
+                      onChange={handleChange}
+                      required
+                      placeholder="John Doe"
+                      className="bg-transparent border-b border-gray-200 py-3 text-lg text-black placeholder:text-gray-400 outline-none focus:border-black transition-colors rounded-none"
+                    />
+                  </div>
+
+                  {/* Subject Input */}
+                  <div className="flex flex-col gap-2">
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-gray-500">
+                      Subject
+                    </label>
+                    <input
+                      type="text"
+                      name="subject"
+                      value={form.subject}
+                      onChange={handleChange}
+                      required
+                      placeholder="Collaboration"
+                      className="bg-transparent border-b border-gray-200 py-3 text-lg text-black placeholder:text-gray-400 outline-none focus:border-black transition-colors rounded-none"
+                    />
+                  </div>
+                </div>
+
+                {/* Message Input */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-gray-500">
+                    Message
+                  </label>
+                  <textarea
+                    name="message"
+                    value={form.message}
+                    onChange={handleChange}
+                    required
+                    rows={1}
+                    placeholder="How can I help you?"
+                    className="bg-transparent border-b border-gray-200 py-3 text-lg text-black placeholder:text-gray-400 outline-none focus:border-black transition-colors resize-none rounded-none"
+                  />
+                </div>
+
+                {/* Submit Button */}
+                <Button
+                  type="submit"
+                  size="md"
+                  variant="primary"
+                  icon={Mail}
+                  className="mt-4"
+                >
+                  Send Message
+                </Button>
+              </form>
+            </div>
+
+            {/* Right Column: Info Cards */}
+            <div className="lg:col-span-5 flex flex-col gap-6">
+              
+              {/* Email Card */}
+              <div className="bg-white border border-gray-200 rounded-3xl p-8 shadow-sm">
+                <h4 className="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-6">
+                  Direct Mail
+                </h4>
+                <div className="flex items-center justify-between gap-4">
+                  <p className="text-lg font-medium text-black truncate">
+                    {MY_EMAIL}
+                  </p>
+                  <button 
+                    onClick={copyEmail}
+                    className="p-2 text-gray-400 hover:text-black transition-colors"
+                  >
+                    {copied ? <Check size={20} className="text-green-500" /> : <Copy size={20} />}
+                  </button>
+                </div>
               </div>
-              <div className="flex flex-col gap-2">
-                <label className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-muted)]">Subject</label>
-                <input
-                  type="text"
-                  name="subject"
-                  value={form.subject}
-                  onChange={handleChange}
-                  required
-                  placeholder="Collaboration"
-                  className="bg-transparent border-b border-[var(--color-border)] py-4 text-[var(--color-text)] outline-none focus:border-[var(--color-primary)] transition-standard"
-                />
+
+              {/* Socials Card */}
+              <div className="bg-white border border-gray-200 rounded-3xl p-8 shadow-sm h-full">
+                <h4 className="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-6">
+                  Socials
+                </h4>
+                <div className="flex gap-6">
+                  <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="text-gray-500 hover:text-black transition-colors">
+                    <Github size={28} strokeWidth={1.5} />
+                  </a>
+                  <a href={LINKEDIN_URL} target="_blank" rel="noreferrer" className="text-gray-500 hover:text-[#0A66C2] transition-colors">
+                    <Linkedin size={28} strokeWidth={1.5} />
+                  </a>
+                </div>
               </div>
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <label className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-muted)]">Message</label>
-              <textarea
-                name="message"
-                value={form.message}
-                onChange={handleChange}
-                required
-                rows={4}
-                placeholder="How can I help you?"
-                className="bg-transparent border-b border-[var(--color-border)] py-4 text-[var(--color-text)] outline-none focus:border-[var(--color-primary)] transition-standard resize-none"
-              />
-            </div>
-
-            <motion.button
-              type="submit"
-              whileHover={{ y: -4 }}
-              className="mt-4 px-10 py-5 bg-[var(--color-accent)] text-[var(--color-bg)] rounded-full font-bold flex items-center justify-center gap-3 w-fit transition-standard hover:shadow-xl"
-            >
-              <Mail size={18} />
-              <span>Send Message</span>
-            </motion.button>
-          </form>
-        </motion.div>
-
-        {/* Info */}
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          className="lg:col-span-5 flex flex-col gap-10"
-        >
-          <div className="pro-card">
-            <h4 className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-muted)] mb-4">Direct Mail</h4>
-            <div className="flex items-center justify-between">
-              <p className="text-lg font-semibold text-[var(--color-text)]">{MY_EMAIL}</p>
-              <button 
-                onClick={copyEmail}
-                className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-standard"
-              >
-                {copied ? <Check size={18} /> : <Copy size={18} />}
-              </button>
+              
             </div>
           </div>
+        </div>
 
-          <div className="pro-card">
-            <h4 className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-muted)] mb-6">Socials</h4>
-            <div className="flex gap-6">
-              <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-standard">
-                <Github size={24} />
-              </a>
-              <a href={LINKEDIN_URL} target="_blank" rel="noreferrer" className="text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-standard">
-                <Linkedin size={24} />
-              </a>
-            </div>
+        {/* Availability Badge - Bottom Right */}
+        <div className="flex justify-end mt-16">
+          <div className="flex items-center gap-3 px-4 py-2">
+            <div className="w-2 h-2 bg-green-500 rounded-full" />
+            <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+              Available for work
+            </span>
           </div>
+        </div>
 
-          <div className="flex items-center gap-4 px-6 py-4 bg-[var(--color-bg)] border border-[var(--color-border)] rounded-2xl w-fit">
-            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            <span className="text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-widest">Available for work</span>
-          </div>
-        </motion.div>
       </div>
-    </div>
+    </section>
   );
 };
 
-
-export default SectionWrapper(Contact, "contact");
-
+export default Contact;

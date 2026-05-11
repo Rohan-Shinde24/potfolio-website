@@ -96,6 +96,18 @@ const projects = [
     github_link: "https://github.com/Rohan-Shinde24",
     live_link: "#",
   },
+  {
+    name: "Modern Portfolio",
+    description: "A high-performance personal portfolio built with React, Framer Motion, and GSAP. Features 3D animations, custom shaders, and a sleek minimalist design system.",
+    tags: [
+      { name: "React", color: "#61DAFB" },
+      { name: "Framer Motion", color: "#FF0055" },
+      { name: "GSAP", color: "#88CE02" },
+    ],
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80",
+    github_link: "https://github.com/Rohan-Shinde24",
+    live_link: "#",
+  },
 ];
 
 export const MY_EMAIL = "rohanshinde2406@gmail.com";
