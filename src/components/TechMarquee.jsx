@@ -70,7 +70,7 @@ const TechMarquee = () => {
           display: flex;
           flex-wrap: wrap;
           gap: 18px;
-          max-width: 900px;
+          max-width: 1000px;
           padding: 40px;
 
           background: linear-gradient(
@@ -78,17 +78,14 @@ const TechMarquee = () => {
             color-mix(in srgb, var(--color-primary) 5%, var(--color-bg)) 0%,
             var(--color-bg) 100%
           );
-          border: 2px solid var(--color-border);
+        
           border-radius: 28px;
 
           /* Depth — thick bottom edge */
-          box-shadow:
-            0 12px 0 -2px color-mix(in srgb, var(--color-border) 90%, #000 10%),
-            0 20px 0 -6px color-mix(in srgb, var(--color-border) 60%, #000 40%),
-            0 30px 60px rgba(0,0,0,0.15);
+        
 
           transform-style: preserve-3d;
-
+ 
           /* Start tilted */
           transform: rotateX(52deg) rotateZ(-8deg);
           animation: panel-float 6s ease-in-out infinite;
@@ -98,16 +95,7 @@ const TechMarquee = () => {
           transition: box-shadow 0.4s ease;
         }
 
-        /* On hover: panel stands up to face you */
-        .skills-panel:hover {
-          animation-play-state: paused;
-          transform: rotateX(0deg) rotateZ(0deg) !important;
-          box-shadow:
-            0 30px 80px rgba(0,0,0,0.15),
-            0 0 0 2px var(--color-primary);
-          transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1),
-                      box-shadow 0.4s ease;
-        }
+    
 
         /* ── Individual skill chip ── */
         @keyframes chip-float {
@@ -172,6 +160,41 @@ const TechMarquee = () => {
 
         .skill-chip:hover .chip-label {
           color: var(--color-primary);
+        }
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+          @keyframes panel-float {
+            0%   { transform: rotateX(40deg) rotateZ(-5deg) translateY(0px); }
+            30%  { transform: rotateX(40deg) rotateZ(-5deg) translateY(-16px); }
+            60%  { transform: rotateX(40deg) rotateZ(-5deg) translateY(6px); }
+            100% { transform: rotateX(40deg) rotateZ(-5deg) translateY(0px); }
+          }
+          .skills-panel {
+            max-width: 92vw;
+            padding: 20px 16px;
+            gap: 12px;
+            transform: rotateX(40deg) rotateZ(-5deg);
+            border-radius: 20px;
+          }
+          .skill-chip { width: 68px; }
+          .chip-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+          }
+          .chip-icon img { width: 22px; height: 22px; }
+          .chip-label { font-size: 7px; letter-spacing: 0.1em; }
+        }
+
+        @media (max-width: 480px) {
+          .skills-panel {
+            max-width: 96vw;
+            padding: 16px 12px;
+            gap: 10px;
+          }
+          .skill-chip { width: 58px; }
+          .chip-icon { width: 34px; height: 34px; }
+          .chip-label { display: none; }
         }
       `}</style>
     </section>

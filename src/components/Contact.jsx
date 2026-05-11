@@ -31,12 +31,12 @@ const Contact = () => {
   };
 
   return (
-    <section className="relative w-full min-h-screen py-24 bg-white text-black overflow-hidden flex justify-center">
+    <section className="relative w-full min-h-screen py-16 sm:py-24 bg-white text-black overflow-hidden flex justify-center">
       
       {/* CSS Dot Grid Background matching the image */}
       <div className="absolute inset-0 z-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:32px_32px] opacity-70" />
 
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-6 lg:px-12 flex flex-col justify-between">
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-12 flex flex-col justify-between">
         
         <div>
           {/* Header Section */}
@@ -45,13 +45,13 @@ const Contact = () => {
               03 / Contact
             </h3>
             
-            <h2 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1]">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1]">
               Let's Build Something <br />
               <span className="text-gray-400 font-medium">Extraordinary.</span>
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-24">
             
             {/* Left Column: Form */}
             <div className="lg:col-span-7">
@@ -124,17 +124,17 @@ const Contact = () => {
             <div className="lg:col-span-5 flex flex-col gap-6">
               
               {/* Email Card */}
-              <div className="bg-white border border-gray-200 rounded-3xl p-8 shadow-sm">
+              <div className="pro-card h-auto">
                 <h4 className="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-6">
                   Direct Mail
                 </h4>
                 <div className="flex items-center justify-between gap-4">
-                  <p className="text-lg font-medium text-black truncate">
+                  <p className="text-sm sm:text-lg font-medium text-black break-all">
                     {MY_EMAIL}
                   </p>
                   <button 
                     onClick={copyEmail}
-                    className="p-2 text-gray-400 hover:text-black transition-colors"
+                    className="p-2 text-gray-400 hover:text-black transition-colors shrink-0"
                   >
                     {copied ? <Check size={20} className="text-green-500" /> : <Copy size={20} />}
                   </button>
@@ -142,16 +142,16 @@ const Contact = () => {
               </div>
 
               {/* Socials Card */}
-              <div className="bg-white border border-gray-200 rounded-3xl p-8 shadow-sm h-full">
+              <div className="pro-card h-full">
                 <h4 className="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-6">
                   Socials
                 </h4>
-                <div className="flex gap-6">
-                  <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="text-gray-500 hover:text-black transition-colors">
-                    <Github size={28} strokeWidth={1.5} />
+                <div className="flex gap-8">
+                  <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="text-gray-500 hover:text-black transition-all hover:scale-110">
+                    <Github size={32} strokeWidth={1.5} />
                   </a>
-                  <a href={LINKEDIN_URL} target="_blank" rel="noreferrer" className="text-gray-500 hover:text-[#0A66C2] transition-colors">
-                    <Linkedin size={28} strokeWidth={1.5} />
+                  <a href={LINKEDIN_URL} target="_blank" rel="noreferrer" className="text-gray-500 hover:text-[#0A66C2] transition-all hover:scale-110">
+                    <Linkedin size={32} strokeWidth={1.5} />
                   </a>
                 </div>
               </div>

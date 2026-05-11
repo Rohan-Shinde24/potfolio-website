@@ -15,23 +15,23 @@ const ExperienceCard = ({ experience, index }) => {
         initial={{ opacity: 0, x: 20 }}
         whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5, delay: index * 0.1 }}
-        className="pro-card"
+        className="pro-card w-full"
       >
-        <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
           <div>
-            <h3 className="text-xl font-bold text-[var(--color-text)]">{experience.title}</h3>
-            <p className="text-[var(--color-primary)] font-semibold text-sm uppercase tracking-wider mt-1">{experience.company_name}</p>
+            <h3 className="text-xl md:text-2xl font-bold text-[var(--color-text)]">{experience.title}</h3>
+            <p className="text-[var(--color-primary)] font-semibold text-sm md:text-base uppercase tracking-wider mt-1">{experience.company_name}</p>
           </div>
-          <span className="px-4 py-1.5 bg-[var(--color-bg)] border border-[var(--color-border)] rounded-full text-[var(--color-text-muted)] text-xs font-bold uppercase tracking-widest">
+          <span className="w-fit px-4 py-2 bg-[var(--color-primary-semi)] border border-[var(--color-primary)] rounded-full text-[var(--color-primary)] text-[10px] font-bold uppercase tracking-widest">
             {experience.date}
           </span>
         </div>
 
-        <ul className="flex flex-col gap-4">
+        <ul className="flex flex-col gap-5">
           {experience.points.map((point, idx) => (
             <li key={idx} className="flex gap-4 text-[var(--color-text-muted)] leading-relaxed">
-              <span className="mt-2.5 w-1.5 h-1.5 rounded-full bg-[var(--color-border)] shrink-0" />
-              <span className="text-sm">{point}</span>
+              <span className="mt-2.5 w-1.5 h-1.5 rounded-full bg-[var(--color-primary)] shrink-0" />
+              <span className="text-sm md:text-base">{point}</span>
             </li>
           ))}
         </ul>

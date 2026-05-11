@@ -1,4 +1,6 @@
 import project1 from "../assets/japanese-learning.png";
+import renderIcon from "../assets/images.png";
+import streamlitIcon from "../assets/streamlit-logo-secondary-colormark-darktext.png";
 
 export const navLinks = [
   { id: "about",   title: "About" },
@@ -28,7 +30,7 @@ export const techRow2 = [
   { name: "Git",        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
   { name: "GitHub",     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
   { name: "Vercel",     icon: "https://assets.vercel.com/image/upload/v1588805858/repositories/vercel/logo.png" },
-  { name: "Render",     icon: "https://images.g2crowd.com/uploads/product/image/large_detail/large_detail_477db83f923a7a5b9d1a1f5c4d7e6e5a/render.png" },
+  { name: "Render",     icon: renderIcon },
   { name: "Netlify",    icon: "https://www.vectorlogo.zone/logos/netlify/netlify-icon.svg" },
 ];
 
@@ -39,6 +41,8 @@ export const techRow3 = [
   { name: "Bootstrap",  icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" },
   { name: "Motion",     icon: "https://cdn.worldvectorlogo.com/logos/framer-motion.svg" },
   { name: "Node JS",    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
+  { name: "Python",     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+  { name: "Streamlit",  icon: streamlitIcon },
 ];
 
 const technologies = [...techRow1, ...techRow2, ...techRow3];
@@ -94,7 +98,7 @@ const projects = [
     ],
     image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&q=80",
     github_link: "https://github.com/Rohan-Shinde24",
-    live_link: "#",
+    live_link: "https://ai-based-crop-recommendation-system.streamlit.app/",
   },
   {
     name: "Modern Portfolio",

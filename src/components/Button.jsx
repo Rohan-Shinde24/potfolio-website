@@ -12,7 +12,18 @@ const Button = ({
   disabled = false,
   ...props 
 }) => {
-  const baseStyles = "relative inline-flex items-center justify-center gap-3 font-bold uppercase tracking-widest transition-all duration-300 disabled:opacity-50 disabled:pointer-events-none overflow-hidden group";
+  // Rule 5: Global button styles
+  const baseStyles = `
+    relative inline-flex items-center justify-center gap-3 
+    font-bold uppercase tracking-widest 
+    transition-all duration-300 
+    disabled:opacity-50 disabled:pointer-events-none 
+    overflow-hidden group
+    min-h-[48px] md:min-h-[56px] 
+    rounded-[12px] 
+    w-full sm:w-auto
+    px-8 py-3
+  `.replace(/\s+/g, ' ').trim();
   
   const variants = {
     primary: "bg-[var(--color-text)] text-[var(--color-bg)] hover:bg-[var(--color-primary)] hover:text-white shadow-lg",
@@ -22,9 +33,9 @@ const Button = ({
   };
 
   const sizes = {
-    sm: "px-6 py-3 text-[10px] rounded-full",
-    md: "px-8 py-4 text-xs rounded-full",
-    lg: "px-10 py-5 text-sm rounded-full",
+    sm: "px-6 py-2.5 text-[10px]",
+    md: "px-9 py-4 text-xs",
+    lg: "px-12 py-5 text-sm",
   };
 
   return (
@@ -40,7 +51,7 @@ const Button = ({
       {/* Background Hover Slide Effect */}
       <span className="absolute inset-0 w-0 bg-white/10 transition-all duration-300 group-hover:w-full" />
       
-      <span className="relative z-10 flex items-center gap-2">
+      <span className="relative z-10 flex items-center justify-center gap-2">
         {Icon && <Icon size={size === 'sm' ? 14 : 18} />}
         {children}
       </span>

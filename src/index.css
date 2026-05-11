@@ -32,19 +32,34 @@
   --glass-border: rgba(31, 31, 35, 0.5);
 }
 
+/* 1. Global Sizing & Overflow Rules */
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: border-box; /* Rule 2 */
   font-family: 'Inter', sans-serif;
+}
+
+html, body {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden; /* Rule 8 */
+  position: relative;
 }
 
 body {
   background-color: var(--color-bg);
   color: var(--color-text);
-  overflow-x: hidden;
-  transition: background-color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  line-height: 1.6; /* Rule 3 */
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* 2. Text Overflow Prevention (Rule 1) */
+h1, h2, h3, h4, h5, h6, p, span, a, li {
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -52,71 +67,56 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.02em;
 }
 
+/* 3. Container Rules (Rule 2) */
 .max-container {
+  width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 4rem;
+  padding: 0 5rem;
+}
+
+@media (max-width: 1024px) {
+  .max-container { padding: 0 3rem; }
 }
 
 @media (max-width: 768px) {
-  .max-container { padding: 0 1.5rem; }
+  .max-container { padding: 0 1.75rem; }
 }
 
-/* Glass Components */
-.glass-panel {
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border);
+@media (max-width: 480px) {
+  .max-container { padding: 0 1.25rem; }
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
+/* 4. Section Padding Utility (Rule 3) */
+.section-padding {
+  padding-top: 7rem;
+  padding-bottom: 7rem;
 }
 
-::-webkit-scrollbar-track {
-  background: transparent;
+@media (max-width: 768px) {
+  .section-padding {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--color-border);
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-text-muted);
-}
-
-/* Selection */
-::selection {
-  background-color: var(--color-primary);
-  color: white;
-}
-
-/* Professional Reveal Animation Classes */
-.reveal-up {
-  opacity: 0;
-  transform: translateY(30px);
-}
-
-/* Smooth Transitions */
-.transition-standard {
-  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-/* Hide noise and spotlight from previous version */
-.noise-overlay, .spotlight {
-  display: none !important;
-}
-
-/* Refined Card Style */
+/* 5. Refined Card Style (Rule 4) */
 .pro-card {
   background: var(--color-bg);
   border: 1px solid var(--color-border);
-  border-radius: 24px;
-  padding: 2.5rem;
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  border-radius: 32px;
+  padding: 3rem;
+  overflow: hidden; /* Rule 4 */
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), 
+              box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .pro-card {
+    padding: 1.75rem;
+    border-radius: 24px;
+  }
 }
 
 .pro-card:hover {
@@ -125,24 +125,43 @@ h1, h2, h3, h4, h5, h6 {
   border-color: var(--color-primary);
 }
 
-/* Typography Utilities */
-.text-balance {
-  text-wrap: balance;
+/* 6. Professional reveal classes */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(30px);
 }
 
+/* 7. Typography Utilities */
 .title-xl {
-  font-size: clamp(3rem, 8vw, 6rem);
+  font-size: clamp(2.5rem, 8vw, 6rem);
   font-weight: 800;
-  line-height: 0.95;
+  line-height: 1.1;
 }
 
 .title-lg {
   font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1.2;
 }
 
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+.transition-standard {
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+/* Glass Panels */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }
+::selection { background-color: var(--color-primary); color: white; }

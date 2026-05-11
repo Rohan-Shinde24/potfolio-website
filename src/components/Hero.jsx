@@ -4,6 +4,7 @@ import { Github, Linkedin, Mail, ChevronRight } from "lucide-react";
 import profile from "../assets/edited-photo.png";
 import { MY_EMAIL } from "../constants";
 import { ShapeGrid } from "./index";
+import Button from "./Button";
 
 // Staggered animation variants
 const containerVariants = {
@@ -61,7 +62,7 @@ const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-bg)] via-transparent to-[var(--color-bg)] opacity-100" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center pt-28 pb-16 z-10">
+      <div className="max-container w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center pt-28 pb-16 z-10">
         {/* Left Content */}
         <motion.div
           className="lg:col-span-7 flex flex-col items-start text-left"
@@ -111,18 +112,15 @@ const Hero = () => {
             variants={itemVariants}
             className="flex flex-col sm:flex-row items-start sm:items-center gap-6 w-full sm:w-auto"
           >
-            <motion.a
-              href="#projects"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="group flex items-center justify-center gap-3 bg-[var(--color-text)] text-[var(--color-bg,#fff)] px-8 py-4 rounded-md font-bold uppercase tracking-wider text-sm md:text-base transition-all hover:bg-[var(--color-primary)] hover:text-white w-full sm:w-auto shadow-lg"
+            <Button
+              size="lg"
+              variant="primary"
+              icon={ChevronRight}
+              className="w-full sm:w-auto"
+              onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
             >
               View Selected Works
-              <ChevronRight
-                size={20}
-                className="transition-transform group-hover:translate-x-1"
-              />
-            </motion.a>
+            </Button>
 
             <div className="hidden sm:block h-12 w-[1px] bg-[var(--color-border)]" />
 

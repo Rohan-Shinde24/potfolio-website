@@ -1,92 +1,77 @@
-// Projects.jsx
-
+import React from "react";
 import { motion } from "framer-motion";
 import { Github } from "lucide-react";
-
 import SectionWrapper from "../hoc/SectionWrapper";
-
 import { projects } from "../constants";
-
 import BounceCards from "./BounceCards";
 import Button from "./Button";
 
 const Projects = () => {
-  const transformStyles =
-    window.innerWidth < 768
-      ? [
-          "rotate(-6deg) translateX(-70px)",
-          "rotate(0deg) translateX(0px)",
-          "rotate(6deg) translateX(70px)",
-        ]
-      : [
-          "rotate(-8deg) translateX(-120px)",
-          "rotate(0deg) translateX(0px)",
-          "rotate(8deg) translateX(120px)",
-        ];
+  const isMobile = window.innerWidth < 768;
+  
+  const transformStyles = isMobile
+    ? [
+        "rotate(-3deg) translateX(-220px)",
+        "rotate(0deg) translateX(0px)",
+        "rotate(3deg) translateX(220px)",
+      ]
+    : [
+        "rotate(-4deg) translateX(-420px)",
+        "rotate(0deg) translateX(0px)",
+        "rotate(4deg) translateX(420px)",
+      ];
 
   return (
-    <div className="w-full">
-      {/* Heading */}
-
-      <div className="flex flex-col mb-10">
-        <motion.span
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          className="text-[var(--color-primary)] font-mono text-xs font-bold tracking-[0.3em] uppercase mb-4"
-        >
-          02 / Projects
-        </motion.span>
-
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          className="title-lg text-[var(--color-text)]"
-        >
-          Selected Works & <br />
-
-          <span className="text-[var(--color-text-muted)]">
-            Digital Creations.
-          </span>
-        </motion.h2>
+    <section id="projects" className="relative py-32  bg-[#0A0A0B]">
+      {/* Cinematic Background */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-500/10 blur-[140px] opacity-20 animate-pulse" />
+        <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-purple-500/10 blur-[160px] opacity-20" />
+        <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
       </div>
 
-      {/* Cards */}
+      <div className="max-container relative z-10 mb-24">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="flex flex-col items-center text-center"
+        >
+          <span className="text-[var(--color-primary)] font-black text-[10px] tracking-[0.5em] uppercase mb-6">
+            03 / Selected Works
+          </span>
+          <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter mb-8">
+            Digital <span className="text-white/20">Showcase.</span>
+          </h2>
+          <p className="max-w-2xl text-white/40 text-sm md:text-base leading-relaxed font-medium">
+            A collection of high-performance applications built with precision, 
+            scalability, and a focus on premium user experiences.
+          </p>
+        </motion.div>
+      </div>
 
-      <div className="relative w-full min-h-[900px] flex items-center justify-center overflow-hidden mb-20 -mt-16">
+      <div className="relative z-10">
         <BounceCards
           projects={projects}
-          containerWidth="100%"
-          containerHeight={650}
-          animationDelay={0.4}
-          animationStagger={0.1}
-          easeType="elastic.out(1, 0.75)"
+          containerHeight={isMobile ? 550 : 850}
+          animationDelay={0.3}
           transformStyles={transformStyles}
-          enableHover={true}
         />
       </div>
 
-      {/* Button */}
-
-      <div className="mt-10 flex justify-center pb-20">
+      {/* Explore All Button */}
+      <div className="relative z-20 flex justify-center mt-12 pb-20">
         <Button
           size="lg"
           variant="primary"
           icon={Github}
-          onClick={() =>
-            window.open(
-              "https://github.com/Rohan-Shinde24",
-              "_blank"
-            )
-          }
+          onClick={() => window.open("https://github.com/Rohan-Shinde24", "_blank")}
         >
           Explore All Repositories
         </Button>
       </div>
-    </div>
+    </section>
   );
 };
 
-export default SectionWrapper(
-  Projects,
-  "projects"
-);
+export default SectionWrapper(Projects, "projects");
