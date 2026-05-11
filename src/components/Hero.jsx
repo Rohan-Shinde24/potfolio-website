@@ -128,7 +128,7 @@ const Hero = () => {
                   ?.scrollIntoView({ behavior: "smooth" })
               }
             >
-              <spam> </spam>View Selected Works<span> </span>
+              <span></span>View Selected Works<span> </span>
             </Button>
 
             <div className="hidden sm:block h-12 w-[1px] bg-[var(--color-border)]" />
