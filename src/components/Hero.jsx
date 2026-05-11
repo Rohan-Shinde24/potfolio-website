@@ -61,7 +61,7 @@ const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-bg)] via-transparent to-[var(--color-bg)] opacity-100" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8 items-center pt-24 pb-12 z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center pt-28 pb-16 z-10">
         {/* Left Content */}
         <motion.div
           className="lg:col-span-7 flex flex-col items-start text-left"
@@ -72,119 +72,114 @@ const Hero = () => {
           {/* Professional Badge */}
           <motion.div
             variants={itemVariants}
-            className="flex items-center gap-4 mb-6"
+            className="flex items-center gap-3 mb-5"
           >
-            <div className="h-[2px] w-8 bg-[var(--color-primary)]" />
-            <span className="text-[var(--color-primary)] font-mono text-sm tracking-[0.2em] uppercase font-bold">
+            <div className="h-[2px] w-6 bg-[var(--color-primary)]" />
+            <span className="text-[var(--color-primary)] font-mono text-xs font-bold tracking-[0.2em] uppercase">
               Software Engineer & AI Enthusiast
             </span>
           </motion.div>
 
-          {/* Balanced Title */}
+          {/* Title */}
           <motion.h1
             variants={itemVariants}
-            className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[var(--color-text)] mb-6 leading-[1.2] tracking-tight"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-[var(--color-text)] mb-5 leading-[1.15] tracking-tight"
           >
             Architecting <br />
             <span className="text-[var(--color-primary)]">Next-Gen</span> <br />
-            <span className="font-mono font-medium tracking-tighter text-[var(--color-text-muted)] text-3xl md:text-4xl lg:text-5xl">
+            <span className="font-mono font-medium tracking-tighter text-[var(--color-text-muted)] text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
               Digital Solutions
             </span>
-            <span className="inline-block w-[3px] h-8 md:h-12 bg-[var(--color-primary)] ml-3 align-baseline animate-pulse" />
+            <span className="inline-block w-[3px] h-7 md:h-10 bg-[var(--color-primary)] ml-2 align-baseline animate-pulse" />
           </motion.h1>
 
-          {/* Refined Description */}
+          {/* Description */}
           <motion.p
             variants={itemVariants}
-            className="text-base md:text-lg text-[var(--color-text-muted)] max-w-xl mb-12 leading-relaxed font-normal"
+            className="text-sm sm:text-base md:text-lg text-[var(--color-text-muted)] max-w-xl mb-10 leading-relaxed"
           >
             I am{" "}
             <strong className="text-[var(--color-text)] font-semibold">
               Rohan Shinde
             </strong>
             , a Fullstack Developer specializing in building robust, scalable
-            web applications. I bridge the gap between complex backend
-            architectures and clean, intuitive user interfaces.
+            web applications.
           </motion.p>
 
           {/* Action Buttons & Socials */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-col sm:flex-row items-start sm:items-center gap-8 w-full sm:w-auto"
+            className="flex flex-col sm:flex-row items-start sm:items-center gap-6 w-full sm:w-auto"
           >
-            {/* Larger, Prominent CTA Button */}
             <motion.a
               href="#projects"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="group flex items-center justify-center gap-3 bg-[var(--color-text)] text-[var(--color-bg,#fff)] px-10 py-5 rounded-md font-bold uppercase tracking-wider text-base md:text-lg transition-all hover:bg-[var(--color-primary)] hover:text-white w-full sm:w-auto shadow-lg"
+              className="group flex items-center justify-center gap-3 bg-[var(--color-text)] text-[var(--color-bg,#fff)] px-8 py-4 rounded-md font-bold uppercase tracking-wider text-sm md:text-base transition-all hover:bg-[var(--color-primary)] hover:text-white w-full sm:w-auto shadow-lg"
             >
               View Selected Works
               <ChevronRight
-                size={22}
+                size={20}
                 className="transition-transform group-hover:translate-x-1"
               />
             </motion.a>
 
-            <div className="hidden sm:block h-14 w-[1px] bg-[var(--color-border)]" />
+            <div className="hidden sm:block h-12 w-[1px] bg-[var(--color-border)]" />
 
             {/* Social Links */}
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-5">
               <motion.a
                 href="https://github.com/Rohan-Shinde24"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ y: -4, color: "var(--color-primary)" }}
-                className="text-[var(--color-text)] transition-colors p-2"
+                whileHover={{ y: -3, color: "var(--color-primary)" }}
+                className="text-[var(--color-text)] transition-colors p-1"
               >
-                <Github size={28} />
+                <Github size={24} />
               </motion.a>
               <motion.a
                 href="https://linkedin.com/in/rohan-shinde-a6b107252"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ y: -4, color: "#0A66C2" }}
-                className="text-[var(--color-text)] transition-colors p-2"
+                whileHover={{ y: -3, color: "#0A66C2" }}
+                className="text-[var(--color-text)] transition-colors p-1"
               >
-                <Linkedin size={28} />
+                <Linkedin size={24} />
               </motion.a>
               <motion.a
                 href={`mailto:${MY_EMAIL}`}
-                whileHover={{ y: -4, color: "var(--color-primary)" }}
-                className="text-[var(--color-text)] transition-colors p-2"
+                whileHover={{ y: -3, color: "var(--color-primary)" }}
+                className="text-[var(--color-text)] transition-colors p-1"
               >
-                <Mail size={28} />
+                <Mail size={24} />
               </motion.a>
             </div>
           </motion.div>
         </motion.div>
 
-        {/* Right Content - Clean Profile Image */}
-        <div className="lg:col-span-5 relative flex justify-center items-center h-full mt-10 lg:mt-0">
-          <motion.div className="relative w-full max-w-[300px] md:max-w-[360px] aspect-[4/5] z-20">
-            {/* Subtle floating animation */}
+        {/* Right Content - Profile Image */}
+        <div className="lg:col-span-5 relative flex justify-center items-center h-full mt-8 lg:mt-0">
+          <motion.div className="relative w-full max-w-[240px] sm:max-w-[280px] md:max-w-[320px] aspect-[4/5] z-20">
             <motion.div
-              animate={{ y: [0, -15, 0] }}
+              animate={{ y: [0, -12, 0] }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
               className="w-full h-full relative"
             >
-              {/* Clean, shadow-based styling instead of neon blur */}
               <img
                 src={profile}
                 alt="Rohan Shinde - Fullstack Developer"
-                className="w-full h-full object-cover rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-[var(--color-border)] relative z-10 bg-[var(--color-bg)]"
+                className="w-full h-full object-cover rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-[var(--color-border)] relative z-10 bg-[var(--color-bg)]"
               />
             </motion.div>
           </motion.div>
 
-          {/* Clean Geometric Floating Accents */}
           <motion.div
             style={{ y: y2 }}
-            className="absolute -bottom-10 -right-4 w-32 h-32 rounded-full border-[2px] border-[var(--color-border)] z-10 hidden lg:block"
+            className="absolute -bottom-8 -right-4 w-24 h-24 rounded-full border-[2px] border-[var(--color-border)] z-10 hidden lg:block"
           />
           <motion.div
             style={{ y: y2 }}
-            className="absolute top-10 -left-8 w-16 h-16 rounded-full border border-[var(--color-primary)] opacity-50 z-0 hidden lg:block"
+            className="absolute top-8 -left-6 w-14 h-14 rounded-full border border-[var(--color-primary)] opacity-50 z-0 hidden lg:block"
           />
         </div>
       </div>
