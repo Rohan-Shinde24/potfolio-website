@@ -33,15 +33,16 @@ function App() {
       <BrowserRouter>
         <div className="relative min-h-screen bg-[var(--color-bg)] transition-colors duration-500">
           {/* Global Background Grid - Extremely Subtle */}
-          <div className="fixed inset-0 z-0 opacity-[0.15] pointer-events-none">
+          <div className="fixed inset-0 z-0 opacity-[0.25] pointer-events-none">
             <DotGrid
-              dotSize={2}
-              gap={30}
-              baseColor="var(--color-text)"
-              activeColor="var(--color-primary)"
-              proximity={100}
-              shockRadius={150}
-              shockStrength={3}
+              dotSize={3}
+              gap={35}
+              baseColor="#000000"
+              activeColor="#000000"
+              proximity={150}
+              speedTrigger={9999}
+              shockRadius={0}
+              shockStrength={0}
               resistance={500}
               returnDuration={1.2}
             />
