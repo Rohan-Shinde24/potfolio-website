@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { technologies } from "../constants";
 import SectionWrapper from "../hoc/SectionWrapper";
+import { Galaxy } from "./index";
 
 const SkillCard = ({ tech, index }) => {
   return (
@@ -42,8 +43,20 @@ const Skills = () => {
   const filteredTech = technologies.filter(tech => tech.category === activeTab);
 
   return (
-    <div className="w-full">
-      <div className="flex flex-col mb-20">
+    <div className="w-full relative">
+      {/* Galaxy Background */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
+        <Galaxy 
+          mouseRepulsion={true}
+          mouseInteraction={true}
+          density={2}
+          glowIntensity={0.5}
+          saturation={0.5}
+          hueShift={220}
+        />
+      </div>
+
+      <div className="relative z-10 flex flex-col mb-20">
         <motion.span 
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -16,6 +16,7 @@ import CardSwap, { Card } from './CardSwap';
 import FluidGlass from './FluidGlass';
 import Button from './Button';
 import BounceCards from './BounceCards';
+import Galaxy from './Galaxy';
 
 export {
   Hero,
@@ -36,5 +37,6 @@ export {
   Card,
   FluidGlass,
   Button,
-  BounceCards
+  BounceCards,
+  Galaxy
 }

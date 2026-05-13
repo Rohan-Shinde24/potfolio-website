@@ -115,6 +115,6 @@ const projects = [
   },
 ];
 
-export const MY_EMAIL = "rohanshinde2406@gmail.com";
+export const MY_EMAIL = "rohan42455@gmail.com";
 
 export { services, technologies, experiences, projects };
