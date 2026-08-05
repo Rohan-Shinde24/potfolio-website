@@ -1,178 +1,61 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Edu+AU+VIC+WA+NT+Guides:wght@400..700&family=Kalam:wght@300;400;700&family=Orbitron:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@100..900&display=swap');
 @import "tailwindcss";
+@plugin "daisyui";
 
 :root {
-  --color-bg: #FCFCFD;
-  --color-text: #1A1A1E;
-  --color-text-muted: #6B6B78;
-  --color-accent: #0A0A0B;
-  --color-primary: #2563EB;
-  --color-secondary: #7C3AED;
-  --color-border: #E2E2E9;
-  --color-primary-semi: rgba(37, 99, 235, 0.1);
-  
-  --glass-bg: rgba(252, 252, 253, 0.7);
-  --glass-border: rgba(226, 226, 233, 0.5);
-  --glass-blur: 16px;
-
-  --gradient-main: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  --color-bg: #FFFFFF;
+  --color-bg-secondary: #FAFAFA;
+  --color-text: #0A0A0A;
+  --color-text-muted: #666666;
+  --color-border: #E5E5E5;
 }
 
-[data-theme='dark'] {
-  --color-bg: #0A0A0B;
-  --color-text: #F4F4F7;
-  --color-text-muted: #A1A1AA;
-  --color-accent: #FFFFFF;
-  --color-primary: #3B82F6;
-  --color-secondary: #8B5CF6;
-  --color-border: #1F1F23;
-  --color-primary-semi: rgba(59, 130, 246, 0.1);
-  
-  --glass-bg: rgba(10, 10, 11, 0.7);
-  --glass-border: rgba(31, 31, 35, 0.5);
-}
-
-/* 1. Global Sizing & Overflow Rules */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box; /* Rule 2 */
-  font-family: 'Poppins', sans-serif;
-}
-
-html, body {
-  width: 100%;
-  max-width: 100vw;
-  overflow-x: hidden; /* Rule 8 */
-  position: relative;
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background-color: var(--color-bg);
   color: var(--color-text);
-  line-height: 1.6; /* Rule 3 */
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  transition: background-color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* 2. Text Overflow Prevention (Rule 1) */
-h1, h2, h3, h4, h5, h6, p, span, a, li {
-  overflow-wrap: break-word;
-  word-break: break-word;
-  white-space: normal;
+.font-serif-elegant {
+  font-family: 'Playfair Display', serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Orbitron', sans-serif;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  font-weight: 800;
+.font-cursive-accent {
+  font-family: 'Caveat', cursive;
 }
 
-/* 3. Container Rules (Rule 2) */
-.max-container {
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 5rem;
+/* Custom Scrollbar for a premium feel */
+::-webkit-scrollbar {
+  width: 8px;
 }
-
-@media (max-width: 1024px) {
-  .max-container { padding: 0 3rem; }
-}
-
-@media (max-width: 768px) {
-  .max-container { padding: 0 1.75rem; }
-}
-
-@media (max-width: 480px) {
-  .max-container { padding: 0 1.25rem; }
-}
-
-/* 4. Section Padding Utility (Rule 3) */
-.section-padding {
-  padding-top: 7rem;
-  padding-bottom: 7rem;
-}
-
-@media (max-width: 768px) {
-  .section-padding {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
-  }
-}
-
-/* 5. Refined Card Style (Rule 4) */
-.pro-card {
+::-webkit-scrollbar-track {
   background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: 32px;
-  padding: 3rem;
-  overflow: hidden; /* Rule 4 */
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), 
-              box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-              border-color 0.3s ease;
 }
-
-@media (max-width: 768px) {
-  .pro-card {
-    padding: 1.75rem;
-    border-radius: 24px;
-  }
-}
-
-.pro-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.04), 0 0 20px var(--color-primary-semi);
-  border-color: var(--color-primary);
-}
-
-/* 6. Professional reveal classes */
-.reveal-up {
-  opacity: 0;
-  transform: translateY(30px);
-}
-
-/* 7. Typography Utilities */
-.title-xl {
-  font-size: clamp(2.5rem, 8vw, 6rem);
-  font-weight: 800;
-  line-height: 1.1;
-}
-
-.title-lg {
-  font-family: 'Orbitron', sans-serif;
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 800;
-  line-height: 1.2;
-}
-
-.transition-standard {
-  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-/* Glass Panels */
-.glass-panel {
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border);
-}
-
-/* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-border);
-  border-radius: 10px;
+  background: #DDDDDD;
+  border-radius: 4px;
 }
-::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }
-/* Hero Mobile Gap Fix */
-@media (max-width: 768px) {
-  .hero-mobile-gap {
-    padding-top: 100px !important;
-    
-  }
-} 
+::-webkit-scrollbar-thumb:hover {
+  background: #BBBBBB;
+}
 
-::selection { background-color: var(--color-primary); color: white; }
+::selection {
+  background-color: #000000;
+  color: #FFFFFF;
+}
+
+.text-outline-premium {
+  color: transparent;
+  -webkit-text-stroke: 2px #F0F0F0;
+}
+
+.text-outline-dark {
+  color: transparent;
+  -webkit-text-stroke: 2px #0A0A0A;
+}
