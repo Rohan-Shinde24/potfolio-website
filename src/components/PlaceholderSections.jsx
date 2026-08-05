@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import { Github, Linkedin } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 import project1Image from "../assets/project1aipowerrecruit.png";
+import project3Image from "../assets/project3.png";
 
 const AnimatedTextFill = ({ text, className }) => {
   const [filledIndex, setFilledIndex] = useState(-1);
@@ -213,10 +214,10 @@ export const ProjectsSection = () => {
     {
       id: 3,
       title: "Fake News Detection (My Own Trained Model)",
-      image: null,
+      image: project3Image,
       desc: "A machine learning application where users can paste news articles to verify authenticity. Powered by a custom-built, proprietary neural network model developed entirely from scratch.",
       stack: ["Streamlit", "Python", "Pandas", "NumPy", "scikit-learn", "Matplotlib", "Neural Network", "Backpropagation"],
-      link: null
+      link: "https://242848.streamlit.app/"
     }
   ];
 
@@ -246,6 +247,14 @@ export const ProjectsSection = () => {
                         </span>
                       ))}
                     </div>
+                    {project.link && (
+                      <div className="mt-8 flex">
+                        <span className="inline-flex items-center justify-center px-6 py-3 bg-black text-white rounded-xl font-bold uppercase tracking-wider text-sm group-hover:bg-gray-800 transition-colors shadow-lg shadow-black/20 gap-2">
+                          Click to Visit
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </span>
+                      </div>
+                    )}
                   </div>
                   <div className="w-full md:w-[80%] mx-auto aspect-video bg-[#FAFAFA] rounded-xl overflow-hidden relative group shadow-md border border-gray-200 p-2 flex items-center justify-center">
                     {project.image ? (
@@ -261,8 +270,8 @@ export const ProjectsSection = () => {
                     )}
                     {project.link && (
                       <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center rounded-xl">
-                        <span className="text-white font-serif-elegant text-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">
-                          View Project
+                        <span className="text-white font-serif-elegant text-xl md:text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">
+                          Click to Visit
                         </span>
                       </div>
                     )}
