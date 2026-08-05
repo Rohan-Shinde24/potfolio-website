@@ -43,16 +43,21 @@ const AnimatedTextFill = ({ text, className }) => {
 
 export const AboutSection = () => {
   return (
-    <section id="about" className="w-full min-h-0 md:min-h-screen py-16 md:py-32 bg-[#FAFAFA] flex items-center justify-center relative z-10 px-6">
-      <div className="max-w-6xl mx-auto w-full">
+    <section id="about" className="w-full min-h-0 md:min-h-screen py-16 md:py-32 bg-[#FAFAFA] flex items-center justify-center relative z-10">
+      <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
           <div className="flex flex-col lg:flex-row gap-16 items-center lg:items-start">
             <div className="w-full lg:w-full pt-8 lg:pt-0">
               <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-gray-400 mb-4 text-center lg:text-left">About Me</h2>
               
-              <h3 className="text-4xl md:text-5xl lg:text-6xl font-black font-serif-elegant leading-tight mb-8 text-center lg:text-left text-[#0A0A0A]">
+              <h3 className="text-4xl md:text-5xl lg:text-6xl font-black font-serif-elegant leading-tight mb-3 text-center lg:text-left text-[#0A0A0A]">
                 Hi, I am Rohan Shinde. 
               </h3>
+              
+              <h4 className="text-lg md:text-xl font-bold font-sans text-gray-500 tracking-wider uppercase mb-8 text-center lg:text-left">
+                4th Year B.Tech <span className="text-black">AI & ML</span> Student
+              </h4>
+    
               
               <p className="text-xl md:text-2xl font-light text-gray-600 leading-relaxed mb-8 text-center lg:text-left max-w-4xl mx-auto lg:mx-0">
                 I am a passionate <strong className="font-medium text-black">MERN Stack Developer</strong> dedicated to building robust and scalable web applications. I bridge the gap between pixel-perfect frontend designs and powerful, advanced backend architectures.
@@ -79,6 +84,7 @@ export const SkillsSection = () => {
   const [itemsPerSlide, setItemsPerSlide] = useState(12);
 
   const skills = [
+    { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
     { name: "HTML5", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
     { name: "CSS3", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" },
     { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
@@ -129,13 +135,13 @@ export const SkillsSection = () => {
   }, [totalSlides, currentSlide]);
 
   return (
-    <section id="skills" className="w-full py-16 md:py-32 bg-white overflow-hidden flex flex-col justify-center relative z-10 px-6">
-      <div className="max-w-6xl mx-auto w-full">
+    <section id="skills" className="w-full py-16 md:py-32 bg-white overflow-hidden flex flex-col justify-center relative z-10">
+      <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
           <div className="text-center mb-16">
             <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-gray-400 mb-4">My Arsenal</h2>
             <h3 className="text-5xl md:text-7xl font-black font-serif-elegant text-[#0A0A0A] flex items-center justify-center gap-4">
-              My <AnimatedTextFill text="Skills" className="font-cursive-accent font-bold text-outline-dark text-7xl md:text-9xl tracking-normal inline-block" />
+              My <AnimatedTextFill text="Skills" className="font-serif-elegant font-black italic text-outline-dark text-7xl md:text-9xl tracking-normal inline-block" />
             </h3>
           </div>
         </AnimatedSection>
@@ -187,70 +193,97 @@ export const SkillsSection = () => {
 };
 
 export const ProjectsSection = () => {
-  const project = {
-    title: "AI Power Recruit",
-    image: project1Image,
-    desc: "An advanced AI-driven MERN stack platform where HR professionals can create jobs and students can apply. Features include an AI Resume ATS evaluator, auto-generated aptitude tests, and seamless AI integrations using LangChain for intelligent support.",
-    stack: ["React.js", "Node.js", "Express.js", "MongoDB", "TypeScript", "Tailwind CSS", "Shadcn UI", "Framer Motion", "Vite", "LangChain", "Vercel", "Render"],
-    link: "https://ai-power-recruit.vercel.app/"
-  };
-
-  const CardContent = (
-    <>
-      <div className="mb-8">
-        <span className="text-sm font-bold uppercase tracking-[0.2em] text-gray-500">Project 1</span>
-        <h4 className="text-4xl font-bold font-serif-elegant mt-2 text-black">{project.title}</h4>
-        <p className="text-gray-600 font-normal mt-4 text-lg leading-relaxed">{project.desc}</p>
-        <div className="flex flex-wrap gap-2 mt-6">
-          {project.stack.map(tech => (
-            <span key={tech} className="px-3 py-1 bg-gray-100 text-gray-700 text-xs font-bold rounded-md uppercase tracking-wider border border-gray-200">
-              {tech}
-            </span>
-          ))}
-        </div>
-      </div>
-      <div className="w-full md:w-[80%] mx-auto aspect-video bg-[#FAFAFA] rounded-xl overflow-hidden relative group shadow-md border border-gray-200 p-2 flex items-center justify-center">
-        {project.image ? (
-          <img 
-            src={project.image} 
-            alt={project.title} 
-            className="w-full h-full object-contain rounded-lg transform group-hover:scale-105 transition-transform duration-700"
-          />
-        ) : (
-          <div className="absolute inset-0 bg-gray-200 animate-pulse rounded-lg" />
-        )}
-        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center rounded-xl">
-          <span className="text-white font-serif-elegant text-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">
-            View Project
-          </span>
-        </div>
-      </div>
-    </>
-  );
+  const projects = [
+    {
+      id: 1,
+      title: "AI Power Recruit",
+      image: project1Image,
+      desc: "An advanced AI-driven MERN stack platform where HR professionals can create jobs and students can apply. Features include an AI Resume ATS evaluator, auto-generated aptitude tests, and seamless AI integrations using LangChain for intelligent support.",
+      stack: ["React.js", "Node.js", "Express.js", "MongoDB", "TypeScript", "Tailwind CSS", "Shadcn UI", "Framer Motion", "Vite", "LangChain", "Vercel", "Render"],
+      link: "https://ai-power-recruit.vercel.app/"
+    },
+    {
+      id: 2,
+      title: "Cargo Orbit AI",
+      image: null,
+      desc: "An AI-powered shipping platform to track ships, book boats and ships, check weather conditions, and find the shortest and safest routes.",
+      stack: ["Next.js", "Tailwind CSS", "DaisyUI", "TypeScript", "MongoDB", "Redis", "Docker", "Node.js", "LangChain", "React.js", "React Hook Form", "Redux Toolkit", "Vercel", "Microservices", "WebSockets"],
+      link: null
+    },
+    {
+      id: 3,
+      title: "Fake News Detection (My Own Trained Model)",
+      image: null,
+      desc: "A machine learning application where users can paste news articles to verify authenticity. Powered by a custom-built, proprietary neural network model developed entirely from scratch.",
+      stack: ["Streamlit", "Python", "Pandas", "NumPy", "scikit-learn", "Matplotlib", "Neural Network", "Backpropagation"],
+      link: null
+    }
+  ];
 
   return (
-    <section id="projects" className="w-full min-h-0 md:min-h-screen py-16 md:py-32 bg-white flex items-center justify-center relative z-10 px-6">
-      <div className="max-w-5xl mx-auto w-full">
+    <section id="projects" className="w-full min-h-0 md:min-h-screen py-16 md:py-32 bg-white flex items-center justify-center relative z-10">
+      <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 md:mb-24">
             <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-gray-400 mb-4">Selected Work</h2>
             <h3 className="text-5xl md:text-7xl font-black font-serif-elegant text-[#0A0A0A] flex items-center justify-center gap-4">
-              My <AnimatedTextFill text="Projects" className="font-cursive-accent font-bold text-outline-dark text-7xl md:text-9xl tracking-normal inline-block" />
+              My <AnimatedTextFill text="Projects" className="font-serif-elegant font-black italic text-outline-dark text-7xl md:text-9xl tracking-normal inline-block" />
             </h3>
           </div>
           
-          <div className="w-full max-w-4xl mx-auto">
-            <AnimatedSection className="flex flex-col gap-4">
-              {project.link ? (
-                <a href={project.link} target="_blank" rel="noreferrer" className="flex flex-col gap-4 group cursor-pointer">
-                  {CardContent}
-                </a>
-              ) : (
-                <div className="flex flex-col gap-4">
-                  {CardContent}
-                </div>
-              )}
-            </AnimatedSection>
+          <div className="w-full max-w-4xl mx-auto flex flex-col gap-24 md:gap-32">
+            {projects.map((project) => {
+              const CardContent = (
+                <>
+                  <div className="mb-8">
+                    <span className="text-sm font-bold uppercase tracking-[0.2em] text-gray-500">Project {project.id}</span>
+                    <h4 className="text-4xl font-bold font-serif-elegant mt-2 text-black">{project.title}</h4>
+                    <p className="text-gray-600 font-normal mt-4 text-lg leading-relaxed">{project.desc}</p>
+                    <div className="flex flex-wrap gap-2 mt-6">
+                      {project.stack.map(tech => (
+                        <span key={tech} className="px-3 py-1 bg-gray-100 text-gray-700 text-xs font-bold rounded-md uppercase tracking-wider border border-gray-200">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="w-full md:w-[80%] mx-auto aspect-video bg-[#FAFAFA] rounded-xl overflow-hidden relative group shadow-md border border-gray-200 p-2 flex items-center justify-center">
+                    {project.image ? (
+                      <img 
+                        src={project.image} 
+                        alt={project.title} 
+                        className="w-full h-full object-contain rounded-lg transform group-hover:scale-105 transition-transform duration-700"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-gray-100 flex items-center justify-center rounded-lg">
+                        <span className="text-gray-400 font-bold uppercase tracking-widest text-sm md:text-base">Image Coming Soon</span>
+                      </div>
+                    )}
+                    {project.link && (
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center rounded-xl">
+                        <span className="text-white font-serif-elegant text-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">
+                          View Project
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </>
+              );
+
+              return (
+                <AnimatedSection key={project.id} className="flex flex-col gap-4">
+                  {project.link ? (
+                    <a href={project.link} target="_blank" rel="noreferrer" className="flex flex-col gap-4 group cursor-pointer">
+                      {CardContent}
+                    </a>
+                  ) : (
+                    <div className="flex flex-col gap-4">
+                      {CardContent}
+                    </div>
+                  )}
+                </AnimatedSection>
+              );
+            })}
           </div>
         </AnimatedSection>
       </div>
@@ -273,36 +306,38 @@ export const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="w-full py-16 md:py-32 bg-[#0A0A0A] text-white flex items-center justify-center relative z-10 px-6">
-      <div className="max-w-3xl mx-auto w-full">
-        <AnimatedSection>
-          <div className="text-center mb-12">
-            <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-gray-400 mb-4">Let's Work Together</h2>
-            <h3 className="text-5xl md:text-7xl font-black font-serif-elegant text-white">
-              Hire <span className="font-sans font-black text-outline-premium text-transparent text-6xl md:text-8xl uppercase tracking-tighter">Me</span>
-            </h3>
-          </div>
-
-          <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-            <div className="flex flex-col gap-2">
-              <label htmlFor="message" className="text-gray-400 font-medium">Tell me about your project</label>
-              <textarea
-                id="message"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder="Hi Rohan, I have an amazing project for you..."
-                className="w-full h-40 bg-[#111111] border border-[#333333] rounded-xl p-4 text-white focus:outline-none focus:border-white transition-colors resize-none"
-                required
-              />
+    <section id="contact" className="w-full py-16 md:py-32 bg-[#0A0A0A] text-white flex items-center justify-center relative z-10">
+      <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto w-full">
+          <AnimatedSection>
+            <div className="text-center mb-12">
+              <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-gray-400 mb-4">Let's Work Together</h2>
+              <h3 className="text-5xl md:text-7xl font-black font-serif-elegant text-white">
+                Hire <span className="font-sans font-black text-outline-premium text-transparent text-6xl md:text-8xl uppercase tracking-tighter">Me</span>
+              </h3>
             </div>
-            <button 
-              type="submit"
-              className="bg-white text-black font-bold py-4 rounded-xl hover:bg-gray-200 transition-colors uppercase tracking-widest text-sm"
-            >
-              Send Message via Gmail
-            </button>
-          </form>
-        </AnimatedSection>
+
+            <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+              <div className="flex flex-col gap-2">
+                <label htmlFor="message" className="text-gray-400 font-medium">Tell me about your project</label>
+                <textarea
+                  id="message"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  placeholder="Hi Rohan, I have an amazing project for you..."
+                  className="w-full h-40 bg-[#111111] border border-[#333333] rounded-xl p-4 text-white focus:outline-none focus:border-white transition-colors resize-none"
+                  required
+                />
+              </div>
+              <button 
+                type="submit"
+                className="bg-white text-black font-bold py-4 rounded-xl hover:bg-gray-200 transition-colors uppercase tracking-widest text-sm"
+              >
+                Send Message via Gmail
+              </button>
+            </form>
+          </AnimatedSection>
+        </div>
       </div>
     </section>
   );

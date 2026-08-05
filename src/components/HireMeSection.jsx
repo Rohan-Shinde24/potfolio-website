@@ -11,15 +11,15 @@ const cards = [
   },
   {
     id: 2,
-    title: "Robust Architecture",
-    description: "I design scalable, robust backend systems using Node.js, Express, and modern databases like MongoDB and PostgreSQL. Security and speed are my top priorities.",
+    title: "Microservices & Architecture",
+    description: "I design highly scalable backend systems utilizing robust microservices architectures with Node.js, Express, and modern databases. Reliability and speed are my top priorities.",
     color: "bg-gray-800",
     textColor: "text-gray-100"
   },
   {
     id: 3,
-    title: "Seamless UX",
-    description: "My focus is on delivering a flawless user experience. I integrate micro-animations and intuitive layouts that keep users completely engaged and delighted.",
+    title: "AI & ML Integration",
+    description: "I possess strong knowledge of AI and Machine Learning, allowing me to seamlessly integrate powerful AI capabilities and intelligent features directly into modern web applications.",
     color: "bg-gray-100",
     textColor: "text-black"
   },
@@ -43,10 +43,10 @@ const HireMeSection = () => {
 
   return (
     <section id="why-hire-me" ref={containerRef} className="relative w-full h-[400vh] bg-[#FAFAFA]">
-      <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden px-4 sm:px-6">
+      <div className="sticky top-0 h-screen max-w-7xl mx-auto w-full flex flex-col items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8">
         
         {/* Section Title */}
-        <div className="absolute top-16 md:top-24 text-center w-full z-0 px-4">
+        <div className="text-center w-full z-0 px-4 mb-6 md:mb-12 mt-4 md:mt-0">
           <h2 className="text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-gray-400 mb-2 md:mb-4">Why Choose Me</h2>
           <h3 className="text-4xl md:text-6xl font-black font-serif-elegant text-[#0A0A0A]">
             Why You Should <span className="font-cursive-accent block md:inline-block">Hire Me</span>
@@ -54,7 +54,7 @@ const HireMeSection = () => {
         </div>
 
         {/* Cards Container */}
-        <div className="relative w-full max-w-4xl h-[60vh] md:h-[65vh] flex justify-center items-start mt-20 md:mt-32">
+        <div className="relative w-full max-w-[95vw] lg:max-w-[1400px] h-[65vh] flex justify-center items-start">
           {cards.map((card, index) => {
             const numCards = cards.length;
             const startScroll = (index - 1) * (1 / (numCards - 1));
@@ -86,9 +86,9 @@ const HireMeSection = () => {
                   top: `calc(${index * 15}px)`,
                   zIndex: index + 1
                 }}
-                className={`absolute w-full h-[55vh] md:h-[500px] p-6 sm:p-8 md:p-12 rounded-[2rem] md:rounded-[3rem] shadow-2xl flex flex-col justify-center ${card.color} ${card.textColor} ${card.border || ""}`}
+                className={`absolute w-full h-auto min-h-[55vh] md:min-h-[500px] py-10 px-6 sm:p-10 md:p-16 rounded-[2rem] md:rounded-[3rem] shadow-2xl flex flex-col justify-center ${card.color} ${card.textColor} ${card.border || ""}`}
               >
-                <div className="max-w-2xl">
+                <div className="max-w-4xl mx-auto w-full">
                   <span className="text-xs md:text-sm font-bold tracking-[0.3em] uppercase opacity-70 mb-4 block">0{index + 1}</span>
                   <h4 className="text-3xl md:text-5xl font-black font-serif-elegant mb-4 md:mb-6 leading-tight">{card.title}</h4>
                   <p className="text-base sm:text-lg md:text-2xl font-light opacity-90 leading-relaxed">

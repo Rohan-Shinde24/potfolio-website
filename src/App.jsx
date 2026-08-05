@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import Lenis from "lenis";
 import Hero from "./components/Hero";
+import HireMeSection from "./components/HireMeSection";
 import { AboutSection, SkillsSection, ProjectsSection, ContactSection } from "./components/PlaceholderSections";
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
       <main>
         <Hero />
         <AboutSection />
+        <HireMeSection />
         <SkillsSection />
         <ProjectsSection />
         <ContactSection />
