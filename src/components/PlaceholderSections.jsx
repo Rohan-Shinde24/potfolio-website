@@ -4,6 +4,7 @@ import { Github, Linkedin } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 import project1Image from "../assets/project1aipowerrecruit.png";
 import project3Image from "../assets/project3.png";
+import doomslangImage from "../assets/doomslang.png";
 
 const AnimatedTextFill = ({ text, className }) => {
   const [filledIndex, setFilledIndex] = useState(-1);
@@ -218,6 +219,14 @@ export const ProjectsSection = () => {
       desc: "A machine learning application where users can paste news articles to verify authenticity. Powered by a custom-built, proprietary neural network model developed entirely from scratch.",
       stack: ["Streamlit", "Python", "Pandas", "NumPy", "scikit-learn", "Matplotlib", "Neural Network", "Backpropagation"],
       link: "https://242848.streamlit.app/"
+    },
+    {
+      id: 4,
+      title: "Doomslang",
+      image: doomslangImage,
+      desc: "An object-oriented programming language designed and developed entirely by me, built from scratch using Python.",
+      stack: ["Python", "Object-Oriented Programming", "Interpreter"],
+      link: "https://doomslang.vercel.app/"
     }
   ];
 

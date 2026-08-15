@@ -35,7 +35,7 @@ const Hero = () => {
         initial="hidden"
         animate={hidden ? "hidden" : "visible"}
         transition={{ duration: 0.4, ease: "easeInOut" }}
-        className="fixed top-6 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl bg-white/90 backdrop-blur-md rounded-2xl py-4 px-6 flex items-center justify-between z-[100] shadow-sm"
+        className="fixed top-6 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl bg-white/90 backdrop-blur-md rounded-2xl py-4 px-6 flex items-center justify-between z-100 shadow-sm"
       >
         <div className="flex items-center gap-2 sm:gap-4">
           <div className="w-8 h-8 sm:w-10 sm:h-10 bg-black text-white rounded-md flex items-center justify-center font-bold tracking-tighter text-sm sm:text-base">
@@ -55,13 +55,13 @@ const Hero = () => {
 
           <div className="hidden sm:flex items-center gap-1 sm:gap-2">
             <a href="https://github.com/Rohan-Shinde24" target="_blank" rel="noreferrer" className="p-1.5 sm:p-2 hover:bg-gray-100 rounded-full transition-colors text-black">
-              <Github strokeWidth={2.5} className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />
+              <Github strokeWidth={2.5} className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
             </a>
             <a href="https://www.linkedin.com/in/rohan-shinde024" target="_blank" rel="noreferrer" className="p-1.5 sm:p-2 hover:bg-gray-100 rounded-full transition-colors text-black">
-              <Linkedin strokeWidth={2.5} className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />
+              <Linkedin strokeWidth={2.5} className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
             </a>
             <a href="https://mail.google.com/mail/?view=cm&fs=1&to=rohan42455@gmail.com" target="_blank" rel="noreferrer" className="p-1.5 sm:p-2 hover:bg-gray-100 rounded-full transition-colors text-black">
-              <Mail strokeWidth={2.5} className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />
+              <Mail strokeWidth={2.5} className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
             </a>
             <a href="#contact" className="ml-1 sm:ml-2 border border-black bg-white text-black px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 rounded-lg text-[10px] sm:text-xs font-bold uppercase tracking-wider hover:bg-black hover:text-white transition-colors whitespace-nowrap">
               Hire Me
@@ -153,7 +153,7 @@ const Hero = () => {
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
-        className="absolute bottom-[-10vh] md:bottom-0 left-1/2 -translate-x-1/2 w-[160%] md:w-full max-w-[800px] h-[80vh] md:h-[88vh] z-30 flex justify-center items-end"
+        className="absolute bottom-[-10vh] md:bottom-0 left-1/2 -translate-x-1/2 w-[160%] md:w-full max-w-200 h-[80vh] md:h-[88vh] z-30 flex justify-center items-end"
       >
         <img 
           src={rohanImage} 

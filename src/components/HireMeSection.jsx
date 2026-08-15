@@ -54,7 +54,7 @@ const HireMeSection = () => {
         </div>
 
         {/* Cards Container */}
-        <div className="relative w-full max-w-[95vw] lg:max-w-[1400px] h-[65vh] flex justify-center items-start">
+        <div className="relative w-full max-w-[95vw] lg:max-w-350 h-[65vh] flex justify-center items-start">
           {cards.map((card, index) => {
             const numCards = cards.length;
             const startScroll = (index - 1) * (1 / (numCards - 1));
@@ -86,7 +86,7 @@ const HireMeSection = () => {
                   top: `calc(${index * 15}px)`,
                   zIndex: index + 1
                 }}
-                className={`absolute w-full h-auto min-h-[55vh] md:min-h-[500px] py-10 px-6 sm:p-10 md:p-16 rounded-[2rem] md:rounded-[3rem] shadow-2xl flex flex-col justify-center ${card.color} ${card.textColor} ${card.border || ""}`}
+                className={`absolute w-full h-auto min-h-[55vh] md:min-h-125 py-10 px-6 sm:p-10 md:p-16 rounded-4xl md:rounded-[3rem] shadow-2xl flex flex-col justify-center ${card.color} ${card.textColor} ${card.border || ""}`}
               >
                 <div className="max-w-4xl mx-auto w-full">
                   <span className="text-xs md:text-sm font-bold tracking-[0.3em] uppercase opacity-70 mb-4 block">0{index + 1}</span>
