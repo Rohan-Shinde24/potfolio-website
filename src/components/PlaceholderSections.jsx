@@ -198,19 +198,19 @@ export const ProjectsSection = () => {
   const projects = [
     {
       id: 1,
+      title: "Doomslang",
+      image: doomslangImage,
+      desc: "An object-oriented programming language designed and developed entirely by me, built from scratch using Python.",
+      stack: ["Python", "Object-Oriented Programming", "Interpreter"],
+      link: "https://doomslang.vercel.app/"
+    },
+    {
+      id: 2,
       title: "AI Power Recruit",
       image: project1Image,
       desc: "An advanced AI-driven MERN stack platform where HR professionals can create jobs and students can apply. Features include an AI Resume ATS evaluator, auto-generated aptitude tests, and seamless AI integrations using LangChain for intelligent support.",
       stack: ["React.js", "Node.js", "Express.js", "MongoDB", "TypeScript", "Tailwind CSS", "Shadcn UI", "Framer Motion", "Vite", "LangChain", "Vercel", "Render"],
       link: "https://ai-power-recruit.vercel.app/"
-    },
-    {
-      id: 2,
-      title: "Cargo Orbit AI",
-      image: null,
-      desc: "An AI-powered shipping platform to track ships, book boats and ships, check weather conditions, and find the shortest and safest routes.",
-      stack: ["Next.js", "Tailwind CSS", "DaisyUI", "TypeScript", "MongoDB", "Redis", "Docker", "Node.js", "LangChain", "React.js", "React Hook Form", "Redux Toolkit", "Vercel", "Microservices", "WebSockets"],
-      link: null
     },
     {
       id: 3,
@@ -219,14 +219,6 @@ export const ProjectsSection = () => {
       desc: "A machine learning application where users can paste news articles to verify authenticity. Powered by a custom-built, proprietary neural network model developed entirely from scratch.",
       stack: ["Streamlit", "Python", "Pandas", "NumPy", "scikit-learn", "Matplotlib", "Neural Network", "Backpropagation"],
       link: "https://242848.streamlit.app/"
-    },
-    {
-      id: 4,
-      title: "Doomslang",
-      image: doomslangImage,
-      desc: "An object-oriented programming language designed and developed entirely by me, built from scratch using Python.",
-      stack: ["Python", "Object-Oriented Programming", "Interpreter"],
-      link: "https://doomslang.vercel.app/"
     }
   ];
 
