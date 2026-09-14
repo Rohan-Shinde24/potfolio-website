@@ -1,4 +1,5 @@
 import { motion } from "motion/react";
+import profileImage from "../assets/myimage.png";
 
 const Hero = () => {
   const containerVariants = {
@@ -33,6 +34,20 @@ const Hero = () => {
       >
         <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full bg-white/5 blur-[120px]" />
         <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] rounded-full bg-white/5 blur-[120px]" />
+      </motion.div>
+
+      {/* Profile Image (Absolute Right Side) */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 2, delay: 1 }}
+        className="absolute right-0 md:right-12 lg:right-32 top-1/2 -translate-y-1/2 w-48 md:w-64 lg:w-80 z-0 pointer-events-none"
+      >
+        <img 
+          src={profileImage} 
+          alt="Rohan Shinde" 
+          className="w-full h-auto object-contain rounded-sm"
+        />
       </motion.div>
 
       {/* Main Content */}
