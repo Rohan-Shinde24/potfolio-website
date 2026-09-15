@@ -53,7 +53,7 @@ const SkillsSection = () => {
           className="mb-20 md:mb-32 text-center"
         >
           <span className="font-sans text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase text-white/40 mb-4 block">
-            05 — ARSENAL
+            ARSENAL
           </span>
           <h2 className="font-serif-elegant font-light italic text-4xl md:text-5xl text-white">
             Tools of the Trade

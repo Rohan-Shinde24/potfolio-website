@@ -1,6 +1,25 @@
-import { motion } from "motion/react";
+import { useRef, useState, useCallback } from "react";
+import { motion, useScroll, useMotionValueEvent } from "motion/react";
 
 const AboutSection = () => {
+  const [glitch, setGlitch] = useState("");
+  const lastScrollRef = useRef(0);
+  const glitchTimerRef = useRef(null);
+  const { scrollY } = useScroll();
+
+  const triggerGlitch = useCallback(() => {
+    const v = Math.random() > 0.5 ? "is-glitching" : "is-glitching-alt";
+    setGlitch(v);
+    clearTimeout(glitchTimerRef.current);
+    glitchTimerRef.current = setTimeout(() => setGlitch(""), 500);
+  }, []);
+
+  useMotionValueEvent(scrollY, "change", (current) => {
+    const delta = Math.abs(current - lastScrollRef.current);
+    lastScrollRef.current = current;
+    if (delta > 2 && Math.random() < 0.15) triggerGlitch();
+  });
+
   return (
     <section id="about" className="relative w-full min-h-screen bg-[#050505] py-32 px-6 md:px-12 flex flex-col justify-center border-t border-white/5">
       
@@ -17,7 +36,7 @@ const AboutSection = () => {
             ABOUT ME
           </h2>
           <span className="font-sans text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase text-white/40 hidden md:block">
-            02 — WHO I AM
+            WHO I AM
           </span>
         </motion.div>
 
@@ -61,7 +80,7 @@ const AboutSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-              className="font-serif-elegant italic font-light text-3xl md:text-5xl lg:text-[4rem] leading-[1.1] text-white"
+              className={`glitch-scroll ${glitch} font-serif-elegant italic font-light text-3xl md:text-5xl lg:text-[4rem] leading-[1.1] text-white`}
             >
               "I enjoy turning complex ideas into simple, useful digital experiences."
             </motion.h3>

@@ -40,7 +40,7 @@ const JourneySection = () => {
             THE JOURNEY
           </h2>
           <span className="font-sans text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase text-white/40 hidden md:block">
-            04 — EXPERIENCE
+            EXPERIENCE
           </span>
         </motion.div>
 
